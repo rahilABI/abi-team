@@ -227,7 +227,7 @@ export default function ProjectsPage() {
                                             
                                             <div className="ph-tagline" style={{ WebkitLineClamp: isExpanded ? 'unset' : 2, marginBottom: '0' }}>
                                                 {project.project_solution}
-                                                {isExpanded && hasOutcomes && project.outcomes.map((o: any, idx: number) => (
+                                                {isExpanded && hasOutcomes && project.outcomes?.map((o: any, idx: number) => (
                                                     <span key={o.id || idx}>
                                                         {' '}{o.description}
                                                     </span>
