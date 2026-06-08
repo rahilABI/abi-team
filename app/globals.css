@@ -32,7 +32,17 @@
         #nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 2rem 4rem;
+            padding: 0.6rem 4rem;
+            background-color: transparent;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        #nav.scrolled {
+            background-color: #03050c;
+            backdrop-filter: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 0.3rem 4rem;
         }
         .brand {
             font-family: 'Space Grotesk', sans-serif;
@@ -58,6 +68,7 @@
             position: relative;
             display: flex; flex-direction: column; justify-content: center;
             padding: 8rem 0;
+            margin-bottom: 25vh;
             pointer-events: auto;
         }
         
@@ -176,13 +187,24 @@
             text-shadow: 0 4px 10px rgba(0,0,0,1);
         }
         
-        .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .section-title { 
+            font-size: 3rem; font-weight: 800; margin-bottom: 1rem; 
+            color: #38bdf8;
+            -webkit-text-stroke: 1.5px rgba(226, 232, 240, 0.8);
+            text-shadow: 
+                1px 1px 0px #0284c7,
+                2px 2px 0px #0369a1,
+                3px 3px 0px #075985,
+                4px 4px 0px #0c4a6e,
+                5px 5px 0px #0f172a,
+                6px 10px 20px rgba(0,0,0,0.9);
+            display: inline-block;
+            letter-spacing: 2px;
+        }
         .section-subtitle { 
             font-size: 1.4rem; line-height: 1.6; margin-bottom: 2rem; max-width: 900px; font-weight: 600;
             font-family: 'Space Grotesk', sans-serif;
-            background: linear-gradient(135deg, #38bdf8 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
             text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
         .small-text { 

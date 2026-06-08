@@ -56,7 +56,7 @@ export default function ProjectsPage() {
     const ITEMS_PER_PAGE = 7;
     const [typeOptions, setTypeOptions] = useState<string[]>(['All']);
 
-    const [projects, setProjects] = useState<{ticket_id: string, project_name: string, project_solution: string, type: string, outcomes?: any[], attachments?: any[]}[]>([]);
+    const [projects, setProjects] = useState<{ticket_id: string, project_name: string, project_solution: string, type: string, outcomes?: any[], attachments?: any[], metrics?: any}[]>([]);
     const [loading, setLoading] = useState(true);
     const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({});
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -80,6 +80,7 @@ export default function ProjectsPage() {
                     .order('created_at', { ascending: false });
 
                 const { data: attachmentsData } = await supabase.from('project_attachments').select('*');
+                const { data: metricsData } = await supabase.from('project_metrics').select('*');
 
                 if (projectsData && lokkerData && !projectsError && !lokkerError) {
                     const lokkerMap: Record<number, string> = {};
@@ -102,14 +103,18 @@ export default function ProjectsPage() {
                         });
                     }
 
-                    const mapped = projectsData.map(p => ({
-                        ticket_id: p.ticket_id,
-                        project_name: p.project_name || 'Untitled Project',
-                        project_solution: p.project_description || p.problem_statement || 'No description available.',
-                        type: lokkerMap[p.type_looker_id] || 'Uncategorized',
-                        outcomes: p.outcomes || [],
-                        attachments: attMap[p.ticket_id] || []
-                    }));
+                    const mapped = projectsData.map(p => {
+                        const metric = metricsData?.find((m: any) => m.ticket_id === p.ticket_id);
+                        return {
+                            ticket_id: p.ticket_id,
+                            project_name: p.project_name || 'Untitled Project',
+                            project_solution: p.project_description || p.problem_statement || 'No description available.',
+                            type: lokkerMap[p.type_looker_id] || 'Uncategorized',
+                            outcomes: p.outcomes || [],
+                            attachments: attMap[p.ticket_id] || [],
+                            metrics: metric || null
+                        };
+                    });
 
                     setProjects(mapped);
                 } else {
@@ -206,6 +211,7 @@ export default function ProjectsPage() {
                             const images = project.attachments ? project.attachments.filter((a: any) => a.dataUrl && a.dataUrl.startsWith('data:image/')) : [];
                             const hasImages = images.length > 0;
                             const hasOutcomes = project.outcomes && project.outcomes.length > 0;
+                            const hasMetrics = !!project.metrics;
                             const isExpanded = expandedProjects[project.ticket_id];
 
                             return (
@@ -236,7 +242,7 @@ export default function ProjectsPage() {
                                         </div>
 
                                         {/* Action / Expand Button */}
-                                        {(hasOutcomes || hasImages) && (
+                                        {(hasOutcomes || hasImages || hasMetrics) && (
                                             <button 
                                                 className={`ph-upvote ${isExpanded ? 'voted' : ''}`}
                                                 onClick={(e) => { e.stopPropagation(); toggleExpand(project.ticket_id); }}
@@ -250,7 +256,7 @@ export default function ProjectsPage() {
                                     </div>
 
                                     {/* Expanded Section (Images & Outcomes) underneath */}
-                                    {isExpanded && (hasOutcomes || hasImages) && (
+                                    {isExpanded && (hasOutcomes || hasImages || hasMetrics) && (
                                         <div style={{ paddingLeft: 'calc(56px + 1.5rem)', marginTop: '1.5rem', width: '100%' }} onClick={(e) => e.stopPropagation()}>
                                             
                                             {/* Images rendered inside expanded view */}
@@ -288,6 +294,78 @@ export default function ProjectsPage() {
                                                                     <img src={att.dataUrl} alt={`Preview ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                                                                 </div>
                                                             ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {/* Metrics Section */}
+                                            {project.metrics && (
+                                                <div style={{ marginTop: hasImages ? '2rem' : '0', padding: '1.5rem', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                                    <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: '#5eead4', marginBottom: '1.5rem', fontWeight: '800' }}>Impact & Metrics</h4>
+                                                    
+                                                    {/* KPI Grid */}
+                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Adoption Rate</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.adoption_rate ? project.metrics.adoption_rate + '%' : 'N/A'}</span>
+                                                        </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>SLA Compliance</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.sla_compliance ? project.metrics.sla_compliance + '%' : 'N/A'}</span>
+                                                        </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Hours Saved</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#38bdf8' }}>{project.metrics.total_hours_saved ? project.metrics.total_hours_saved.toLocaleString() + '+' : 'N/A'}</span>
+                                                        </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Error Reduced</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#34d399' }}>{project.metrics.error_rate_reduced ? project.metrics.error_rate_reduced + '%' : 'N/A'}</span>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Before / After Comparisons */}
+                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+                                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                                                            {project.metrics.process_time_before && (
+                                                                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
+                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>Process Time Before</span>
+                                                                    <span style={{ color: '#f1f5f9', fontWeight: '600', fontSize: '0.9rem' }}>{project.metrics.process_time_before}</span>
+                                                                </div>
+                                                            )}
+                                                            {project.metrics.process_time_after && (
+                                                                <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1rem', borderRadius: '8px' }}>
+                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#34d399', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>Process Time After</span>
+                                                                    <span style={{ color: '#a7f3d0', fontWeight: '600', fontSize: '0.9rem' }}>{project.metrics.process_time_after}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                        
+                                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+                                                            {project.metrics.process_before && (
+                                                                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
+                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>How Is This Process Currently Being Handled?</span>
+                                                                    <span style={{ color: '#f1f5f9', fontWeight: '500', fontSize: '0.95rem', lineHeight: '1.6' }}>{project.metrics.process_before}</span>
+                                                                </div>
+                                                            )}
+                                                            {project.metrics.process_after && (
+                                                                <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1rem', borderRadius: '8px' }}>
+                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#34d399', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>How Will This Process Be Handled After?</span>
+                                                                    <span style={{ color: '#a7f3d0', fontWeight: '500', fontSize: '0.95rem', lineHeight: '1.6' }}>{project.metrics.process_after}</span>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* Tech Stack */}
+                                                    {project.metrics.tools_used && (
+                                                        <div style={{ marginTop: '1.5rem', borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
+                                                            <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', display: 'block', marginBottom: '0.75rem' }}>Tech Stack</span>
+                                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                                                {project.metrics.tools_used.split(',').map((tool: string, i: number) => (
+                                                                    <span key={i} style={{ padding: '0.35rem 0.85rem', background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', borderRadius: '20px', fontSize: '0.7rem', fontWeight: '700', border: '1px solid rgba(56, 189, 248, 0.2)' }}>{tool.trim()}</span>
+                                                                ))}
+                                                            </div>
                                                         </div>
                                                     )}
                                                 </div>
@@ -332,17 +410,16 @@ export default function ProjectsPage() {
                         position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
                         backgroundColor: 'rgba(0, 0, 0, 0.9)', zIndex: 999999,
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        cursor: 'zoom-out', userSelect: 'none'
+                        cursor: 'zoom-out', pointerEvents: 'auto'
                     }}
                     onClick={() => setSelectedImage(null)}
-                    onDoubleClick={() => setSelectedImage(null)}
                 >
+
                     <img 
                         src={selectedImage} 
                         alt="Full Screen" 
-                        style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain' }} 
+                        style={{ maxWidth: '90%', maxHeight: '90%', objectFit: 'contain', cursor: 'zoom-out' }} 
                         onClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
-                        onDoubleClick={(e) => { e.stopPropagation(); setSelectedImage(null); }}
                     />
                 </div>
             )}

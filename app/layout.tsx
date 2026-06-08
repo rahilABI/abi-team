@@ -33,13 +33,29 @@ export default function RootLayout({
                 <a href="/login" className="btn-primary" style={{ display: 'none' }}>Request Access</a>
             </div>
         </nav>
+        <Script id="nav-scroll-effect" strategy="afterInteractive">
+          {`
+            window.addEventListener('scroll', () => {
+              const nav = document.getElementById('nav');
+              if (nav) {
+                if (window.scrollY > 50) {
+                  nav.classList.add('scrolled');
+                } else {
+                  nav.classList.remove('scrolled');
+                }
+              }
+            });
+          `}
+        </Script>
 
         <div style={{ flex: 1, position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
             {children}
         </div>
 
         {/* Global Footer */}
-        <footer className="global-footer">
+        <footer className="global-footer text-protect" style={{ padding: '2rem 4vw', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255,255,255,0.1)', background: '#03050c', marginTop: 'auto' }}>
+            <div style={{ color: '#888' }}>&copy; {new Date().getFullYear()} ABI Team</div>
+            <div style={{ fontWeight: 'bold', color: '#fff', letterSpacing: '0.05em' }}>TRICOG | ABI</div>
         </footer>
       </body>
     </html>
