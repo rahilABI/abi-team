@@ -427,6 +427,7 @@ function animate() {
     
     n8nObjects.forEach(obj => {
         // Fade in all materials of the 3D mesh array
+        obj.mesh.visible = n8nWeight > 0;
         obj.mesh.material.forEach(m => m.opacity = n8nWeight);
     });
 
@@ -466,11 +467,14 @@ function animate() {
     // Earth fades out quickly in the first 30% of the transition
     const earthFade = Math.max(0, 1.0 - (biWeight * 3.33));
     globeMesh.material.opacity = earthFade;
+    globeMesh.visible = earthFade > 0;
     atmosphere.material.opacity = 0.15 * earthFade;
+    atmosphere.visible = earthFade > 0;
     
     textGroup.children.forEach(c => { 
         c.material.transparent = true; 
         c.material.opacity = earthFade; 
+        c.visible = earthFade > 0;
     });
 
     // Dust particles explode outwards tied to scroll progress

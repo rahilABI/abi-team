@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings } from 'lucide-react';
 
 const typewriterContainer = {
   hidden: { opacity: 1 },
@@ -42,7 +43,7 @@ export default function Home() {
   const [metrics, setMetrics] = useState([
     { value: '...', label: 'Total Projects' },
     { value: '...', label: 'Total Hours Saved' },
-    { value: '...', label: 'Data Visibility Improved and Secured' },
+    { value: '...', label: 'Data Visibility' },
     { value: '...', label: 'Optimization' }
   ]);
 
@@ -58,7 +59,7 @@ export default function Home() {
         setMetrics([
             { value: '0', label: 'Total Projects' },
             { value: '0', label: 'Total Hours Saved' },
-            { value: '0x', label: 'Data Visibility Improved and Secured' },
+            { value: '0x', label: 'Data Visibility' },
             { value: 'High', label: 'Optimization' }
         ]);
         return;
@@ -92,7 +93,7 @@ export default function Home() {
       });
 
       const avgOptimization = optCount > 0 ? Math.round(optSum / optCount) : 100;
-      const formattedHours = totalHours > 0 ? `${totalHours.toLocaleString()}+` : '0';
+      const formattedHours = '1007+';
       
       const repVisibility = visibilityMax > 0 ? `${visibilityMax}x` : '3x';
       const repOptimization = `${avgOptimization}%`;
@@ -100,7 +101,7 @@ export default function Home() {
       setMetrics([
         { value: totalProjects.toString(), label: 'Total Projects' },
         { value: formattedHours, label: 'Total Hours Saved' },
-        { value: repVisibility, label: 'Data Visibility Improved and Secured' },
+        { value: repVisibility, label: 'Data Visibility' },
         { value: repOptimization, label: 'Optimization' }
       ]);
     }
@@ -176,13 +177,20 @@ export default function Home() {
         </p>
         <div className="sleek-masonry">
           {[
-            { title: 'Productivity', desc: 'What took hours now takes minutes.' },
-            { title: 'Implementation', desc: 'We understand your process and build the automation around it.' },
-            { title: 'Security', desc: 'Your policies enforce themselves automatically, with nothing left to chance.' },
-            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new innovation and problem-solving.' }
-          ].map(({ title, desc }) => (
+            { title: 'Hours Saved', desc: 'What took hours now takes minutes.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 6, ease: "linear" } } },
+            { title: 'Implementation', desc: 'We understand your process and build the automation around it.', icon: Settings, animProps: { animate: { rotate: -360 }, transition: { repeat: Infinity, duration: 8, ease: "linear" } } },
+            { title: 'Quality', desc: 'Automation keeps your processes aligned to your standards.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 10, ease: "linear" } } },
+            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new innovation and problem-solving.', icon: Settings, animProps: { animate: { rotate: -360 }, transition: { repeat: Infinity, duration: 5, ease: "linear" } } }
+          ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text">{title}</strong>
+              <strong className="heading-text flex items-center gap-2 mb-2">
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                  <motion.div animate={animProps.animate} transition={animProps.transition} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+                  </motion.div>
+                </div>
+                {title}
+              </strong>
               <span className="matter-text">{desc}</span>
             </div>
           ))}
@@ -204,13 +212,20 @@ export default function Home() {
         </p>
         <div className="sleek-masonry">
           {[
-            { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.' },
-            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.' },
-            { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.' },
-            { title: 'Visibility Into Operation', desc: 'Full transparency across every team and process without the noise.' }
-          ].map(({ title, desc }) => (
+            { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
+            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Activity, animProps: { animate: { scale: [1, 1.3, 1, 1.3, 1] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
+            { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
+            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 4, repeatDelay: 1.5, ease: "circIn" } } }
+          ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text">{title}</strong>
+              <strong className="heading-text flex items-center gap-2 mb-2 justify-end">
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                  <motion.div animate={animProps.animate} transition={animProps.transition} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+                  </motion.div>
+                </div>
+                {title}
+              </strong>
               <span className="matter-text">{desc}</span>
             </div>
           ))}

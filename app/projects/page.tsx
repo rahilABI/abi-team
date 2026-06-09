@@ -227,7 +227,7 @@ export default function ProjectsPage() {
                             const images = project.attachments ? project.attachments.filter((a: any) => a.dataUrl && a.dataUrl.startsWith('data:image/')) : [];
                             const hasImages = images.length > 0;
                             const hasOutcomes = project.outcomes && project.outcomes.length > 0;
-                            const hasMetrics = !!project.metrics;
+                            const hasMetrics = !!project.metrics && !!project.metrics.tools_used;
                             const isExpanded = expandedProjects[project.ticket_id];
 
                             return (
@@ -242,9 +242,52 @@ export default function ProjectsPage() {
 
                                         {/* Content */}
                                         <div className="ph-content">
-                                            <div className="ph-name-row" style={{ marginBottom: '0.4rem' }}>
-                                                <span className="ph-name" style={{ fontSize: '1.25rem' }}>{project.project_name}</span>
-                                                <span className="ph-category-badge">{project.type}</span>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', gap: '1rem', flexWrap: 'wrap' }}>
+                                                <div className="ph-name-row" style={{ marginBottom: 0 }}>
+                                                    <span className="ph-name" style={{ fontSize: '1.25rem' }}>{project.project_name}</span>
+                                                    <span className="ph-category-badge">{project.type}</span>
+                                                </div>
+                                                
+                                                {project.metrics && (
+                                                    <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', justifyContent: 'flex-end', marginLeft: 'auto' }}>
+                                                        {project.metrics.total_hours_saved > 0 && (
+                                                            <div title="Hours Saved" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(56, 189, 248, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Hours Saved</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: '800' }}>{project.metrics.total_hours_saved.toLocaleString()}</span>
+                                                            </div>
+                                                        )}
+                                                        {project.metrics.data_visibility_improved > 0 && (
+                                                            <div title="Visibility Improved" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(167, 139, 250, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(167, 139, 250, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Visibility</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#a78bfa', fontWeight: '800' }}>{project.metrics.data_visibility_improved}x</span>
+                                                            </div>
+                                                        )}
+                                                        {project.metrics.optimization_rate > 0 && (
+                                                            <div title="Optimization Rate" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(52, 211, 153, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(52, 211, 153, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Optimized</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#34d399', fontWeight: '800' }}>{project.metrics.optimization_rate}%</span>
+                                                            </div>
+                                                        )}
+                                                        {project.metrics.adoption_rate > 0 && (
+                                                            <div title="Adoption Rate" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(251, 191, 36, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(251, 191, 36, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Adoption</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#fbbf24', fontWeight: '800' }}>{project.metrics.adoption_rate}%</span>
+                                                            </div>
+                                                        )}
+                                                        {project.metrics.security_rate > 0 && (
+                                                            <div title="Security Score" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(244, 63, 94, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(244, 63, 94, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Security</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#fb7185', fontWeight: '800' }}>{project.metrics.security_rate}%</span>
+                                                            </div>
+                                                        )}
+                                                        {project.metrics.sla_compliance > 0 && (
+                                                            <div title="SLA Compliance" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(232, 121, 249, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(232, 121, 249, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>SLA</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#e879f9', fontWeight: '800' }}>{project.metrics.sla_compliance}%</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                )}
                                             </div>
                                             
                                             <div className="ph-tagline" style={{ WebkitLineClamp: isExpanded ? 'unset' : 2, marginBottom: '0' }}>
@@ -318,71 +361,9 @@ export default function ProjectsPage() {
                                             {/* Metrics Section */}
                                             {project.metrics && (
                                                 <div style={{ marginTop: hasImages ? '2rem' : '0', padding: '1.5rem', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                                    <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: '#5eead4', marginBottom: '1.5rem', fontWeight: '800' }}>Impact & Metrics</h4>
-                                                    
-                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                                                        {/* Before Card */}
-                                                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
-                                                            <h5 style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f43f5e', display: 'inline-block' }}></span>
-                                                                Before Implementation
-                                                            </h5>
-                                                            {project.metrics.process_before && (
-                                                                <ul style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.7', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
-                                                                    {project.metrics.process_before.split('.').map((s: string) => s.trim()).filter((s: string) => s.length > 0).map((sentence: string, idx: number) => (
-                                                                        <li key={idx} style={{ marginBottom: '0.6rem' }}><MetricText text={sentence + '.'} highlightColor="#fb7185" /></li>
-                                                                    ))}
-                                                                </ul>
-                                                            )}
-                                                            {(project.metrics.process_time_before || project.metrics.error_rate_before) && (
-                                                                <div style={{ marginTop: 'auto', background: 'rgba(244, 63, 94, 0.05)', borderRadius: '8px', padding: '1rem', borderLeft: '2px solid rgba(244, 63, 94, 0.5)' }}>
-                                                                    <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.7', margin: 0 }}>
-                                                                        Previously, this process required <strong style={{color:'#fb7185', fontWeight:'900'}}>{project.metrics.process_time_before || 'significant time'}</strong>{project.metrics.error_rate_before ? <> and suffered from an error rate of <strong style={{color:'#fb7185', fontWeight:'900'}}>{project.metrics.error_rate_before}</strong></> : ''}.
-                                                                    </p>
-                                                                </div>
-                                                            )}
-                                                        </div>
 
-                                                        {/* After Card */}
-                                                        <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
-                                                            <h5 style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#34d399', fontWeight: '800', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', display: 'inline-block' }}></span>
-                                                                After Implementation
-                                                            </h5>
-                                                            <ul style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.7', paddingLeft: '1.2rem', listStyleType: 'disc', margin: 0 }}>
-                                                                <li style={{ marginBottom: '0.6rem' }}>
-                                                                    With the new solution, process time was reduced to <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.process_time_after || 'a fraction of the time'}</strong>
-                                                                    {project.metrics.error_rate_after ? <> and the error rate dropped to <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.error_rate_after}</strong></> : ''}.
-                                                                </li>
-                                                                {project.metrics.total_hours_saved && (
-                                                                    <li style={{ marginBottom: '0.6rem' }}>
-                                                                        This efficiency gain resulted in over <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.total_hours_saved.toLocaleString()} total hours</strong> saved.
-                                                                    </li>
-                                                                )}
-                                                                {(project.metrics.data_visibility_improved || project.metrics.optimization_rate) && (
-                                                                    <li style={{ marginBottom: '0.6rem' }}>
-                                                                        {project.metrics.data_visibility_improved ? <>Data visibility was enhanced by <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.data_visibility_improved}x</strong></> : ''}
-                                                                        {project.metrics.data_visibility_improved && project.metrics.optimization_rate ? ', ' : ''}
-                                                                        {project.metrics.optimization_rate ? <>{project.metrics.data_visibility_improved ? 'achieving' : 'Achieving'} an optimization rate of <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.optimization_rate}%</strong></> : ''}.
-                                                                    </li>
-                                                                )}
-                                                                {(project.metrics.adoption_rate || project.metrics.sla_compliance || project.metrics.security_rate) && (
-                                                                    <li style={{ marginBottom: '0.6rem' }}>
-                                                                        The system boasts{' '}
-                                                                        {[
-                                                                            project.metrics.adoption_rate ? <span key="adoption">a <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.adoption_rate}%</strong> adoption rate</span> : null,
-                                                                            project.metrics.sla_compliance ? <span key="sla"><strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.sla_compliance}%</strong> SLA compliance</span> : null,
-                                                                            project.metrics.security_rate ? <span key="sec">a <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.security_rate}%</strong> security score</span> : null
-                                                                        ].filter(Boolean).reduce((prev, curr, i, arr) => {
-                                                                            if (i === 0) return curr;
-                                                                            if (i === arr.length - 1) return <>{prev} and {curr}</>;
-                                                                            return <>{prev}, {curr}</>;
-                                                                        }, null as React.ReactNode)}.
-                                                                    </li>
-                                                                )}
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                    
+                                                    {/* Tech Stack */}
                                                     
                                                     {/* Tech Stack */}
                                                     {project.metrics.tools_used && (
