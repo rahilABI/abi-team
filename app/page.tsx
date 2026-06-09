@@ -131,7 +131,7 @@ export default function Home() {
                     left: 0,
                     top: '100%',
                     paddingTop: '0.5rem',
-                    fontSize: '18px',
+                    fontSize: '28px',
                     color: '#ffffff',
                     fontFamily: '"Times New Roman", Times, serif',
                     fontWeight: '900',
