@@ -333,33 +333,34 @@ export default function ProjectsPage() {
                                                                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', display: 'inline-block' }}></span>
                                                                 After Implementation
                                                             </h5>
-                                                            {project.metrics.process_after && (
-                                                                <ul style={{ color: '#a7f3d0', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
-                                                                    {project.metrics.process_after.split('.').map((s: string) => s.trim()).filter((s: string) => s.length > 0).map((sentence: string, idx: number) => (
-                                                                        <li key={idx} style={{ marginBottom: '0.5rem' }}>{sentence}.</li>
-                                                                    ))}
-                                                                </ul>
-                                                            )}
-                                                            
-                                                            <div style={{ marginTop: 'auto', background: 'rgba(52, 211, 153, 0.05)', borderRadius: '8px', padding: '1rem', borderLeft: '2px solid rgba(52, 211, 153, 0.5)' }}>
-                                                                <p style={{ color: '#6ee7b7', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
-                                                                    {`With the new solution, process time was reduced to ${project.metrics.process_time_after || 'a fraction of the time'}${project.metrics.error_rate_after ? ` and the error rate dropped to ${project.metrics.error_rate_after}` : ''}. `}
-                                                                    
-                                                                    {project.metrics.total_hours_saved && `This efficiency gain resulted in over ${project.metrics.total_hours_saved.toLocaleString()} total hours saved. `}
-                                                                    
-                                                                    {project.metrics.data_visibility_improved && `Data visibility was enhanced by ${project.metrics.data_visibility_improved}x, `}
-                                                                    {project.metrics.optimization_rate && `achieving an optimization rate of ${project.metrics.optimization_rate}%. `}
-                                                                    
-                                                                    {(project.metrics.adoption_rate || project.metrics.sla_compliance || project.metrics.security_rate) && (
-                                                                        `The system boasts ` + 
+                                                            <ul style={{ color: '#a7f3d0', fontSize: '0.95rem', lineHeight: '1.6', paddingLeft: '1.2rem', listStyleType: 'disc', margin: 0 }}>
+                                                                <li style={{ marginBottom: '0.5rem' }}>
+                                                                    {`With the new solution, process time was reduced to ${project.metrics.process_time_after || 'a fraction of the time'}${project.metrics.error_rate_after ? ` and the error rate dropped to ${project.metrics.error_rate_after}` : ''}.`}
+                                                                </li>
+                                                                {project.metrics.total_hours_saved && (
+                                                                    <li style={{ marginBottom: '0.5rem' }}>
+                                                                        {`This efficiency gain resulted in over ${project.metrics.total_hours_saved.toLocaleString()} total hours saved.`}
+                                                                    </li>
+                                                                )}
+                                                                {(project.metrics.data_visibility_improved || project.metrics.optimization_rate) && (
+                                                                    <li style={{ marginBottom: '0.5rem' }}>
+                                                                        {project.metrics.data_visibility_improved ? `Data visibility was enhanced by ${project.metrics.data_visibility_improved}x` : ''}
+                                                                        {project.metrics.data_visibility_improved && project.metrics.optimization_rate ? ', ' : ''}
+                                                                        {project.metrics.optimization_rate ? `${project.metrics.data_visibility_improved ? 'achieving' : 'Achieving'} an optimization rate of ${project.metrics.optimization_rate}%` : ''}
+                                                                        .
+                                                                    </li>
+                                                                )}
+                                                                {(project.metrics.adoption_rate || project.metrics.sla_compliance || project.metrics.security_rate) && (
+                                                                    <li>
+                                                                        {`The system boasts ` + 
                                                                         [
                                                                             project.metrics.adoption_rate ? `a ${project.metrics.adoption_rate}% adoption rate` : null,
                                                                             project.metrics.sla_compliance ? `${project.metrics.sla_compliance}% SLA compliance` : null,
                                                                             project.metrics.security_rate ? `a ${project.metrics.security_rate}% security score` : null
-                                                                        ].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' and $1') + `.`
-                                                                    )}
-                                                                </p>
-                                                            </div>
+                                                                        ].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' and $1') + `.`}
+                                                                    </li>
+                                                                )}
+                                                            </ul>
                                                         </div>
                                                     </div>
                                                     
