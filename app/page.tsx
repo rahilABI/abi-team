@@ -123,7 +123,7 @@ export default function Home() {
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
             <h2 className="modern-title" style={{ marginTop: '12rem', marginBottom: '-0.5rem', textAlign: 'left', fontSize: '5rem' }}>
               Where <span className="accent-text">Complexity</span><br />
-              <span style={{ display: 'inline-block', marginLeft: '1.2em' }}>Becomes Clarity</span>
+              <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>Becomes Clarity</span>
             </h2>
             <p style={{
               fontSize: '18px',
@@ -134,7 +134,7 @@ export default function Home() {
               textShadow: '0 2px 10px rgba(0,0,0,0.5)',
               position: 'relative',
               zIndex: 20,
-              marginLeft: '18rem',
+              marginLeft: '12.5rem',
               marginTop: '0',
               fontStyle: 'normal'
             }}>
