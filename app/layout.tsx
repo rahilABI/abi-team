@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@700&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body suppressHydrationWarning style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         {/* Global 3D Canvas */}
