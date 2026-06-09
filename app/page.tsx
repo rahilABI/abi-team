@@ -121,20 +121,21 @@ export default function Home() {
         <div className="block-group" style={{ marginBottom: 0 }}>
 
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
-            <h2 className="modern-title" style={{ marginTop: '18rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+            <h2 className="modern-title" style={{ marginTop: '18rem', marginBottom: '-0.5rem', textAlign: 'left' }}>
               Where <span className="accent-text">Complexity</span><br />
               Becomes Clarity
             </h2>
             <p style={{
               fontSize: '2.2rem',
-              color: '#38bdf8',
+              color: '#ffffff',
               fontFamily: '"Caveat", cursive',
               fontWeight: '700',
               letterSpacing: '1px',
-              textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
               position: 'relative',
               zIndex: 20,
-              marginLeft: '5rem'
+              marginLeft: '11rem',
+              marginTop: '0'
             }}>
               Automate the grind. Let your data speak for itself.
             </p>
