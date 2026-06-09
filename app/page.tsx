@@ -76,17 +76,12 @@ export default function Home() {
 
       const totalProjects = publishedTicketIds.length;
       let totalHours = 0;
-      let adoptionSum = 0;
       let visibilityMax = 0;
       let optSum = 0;
       let optCount = 0;
 
       metricsData.forEach(m => {
         if (m.total_hours_saved) totalHours += m.total_hours_saved;
-        if (m.adoption_rate) {
-          adoptionSum += m.adoption_rate;
-          adoptionCount++;
-        }
         if (m.data_visibility_improved && m.data_visibility_improved > visibilityMax) {
           visibilityMax = m.data_visibility_improved;
         }
@@ -96,10 +91,8 @@ export default function Home() {
         }
       });
 
-      const avgAdoption = adoptionCount > 0 ? Math.round(adoptionSum / adoptionCount) : 0;
       const avgOptimization = optCount > 0 ? Math.round(optSum / optCount) : 100;
       const formattedHours = totalHours > 0 ? `${totalHours.toLocaleString()}+` : '0';
-      const formattedAdoption = `${avgAdoption}%`;
       
       const repVisibility = visibilityMax > 0 ? `${visibilityMax}x` : '3x';
       const repOptimization = `${avgOptimization}%`;
