@@ -124,9 +124,6 @@ export default function Home() {
             Where <span className="accent-text">Complexity</span><br />
             Becomes Clarity
           </h2>
-          <p className="hero-subtitle" style={{ textAlign: 'left' }}>
-            We automate the processes that drain your team&apos;s time and build the intelligence layer that makes<br />your data worth having.
-          </p>
 
         </div>
 
