@@ -121,7 +121,7 @@ export default function Home() {
         <div className="block-group" style={{ marginBottom: 0 }}>
 
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
-            <h2 className="modern-title" style={{ marginTop: '12rem', marginBottom: '3rem', textAlign: 'left', fontSize: '48px' }}>
+            <h2 className="modern-title" style={{ marginTop: '12rem', marginBottom: '3rem', textAlign: 'left', fontSize: '58px' }}>
               Where <span className="accent-text">Complexity</span><br />
               <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>
                 Becomes <span style={{ position: 'relative' }}>
