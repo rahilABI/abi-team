@@ -120,34 +120,24 @@ export default function Home() {
       >
         <div className="block-group" style={{ marginBottom: 0 }}>
 
-          <h2 className="modern-title" style={{ marginTop: '18rem' }}>
-            Where <span className="accent-text">Complexity</span><br />
-            Becomes Clarity
-          </h2>
-          <p style={{
-            marginTop: '2rem',
-            textAlign: 'center',
-            maxWidth: '800px',
-            marginInline: 'auto',
-            position: 'relative',
-            zIndex: 20,
-            fontSize: '1.8rem',
-            lineHeight: '1.4'
-          }}>
-            <span style={{
-              fontWeight: '700',
-              color: '#38bdf8',
+          <div style={{ display: 'inline-block', textAlign: 'left' }}>
+            <h2 className="modern-title" style={{ marginTop: '18rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+              Where <span className="accent-text">Complexity</span><br />
+              Becomes Clarity
+            </h2>
+            <p style={{
+              fontSize: '1.5rem',
+              color: '#cbd5e1',
+              fontFamily: '"Space Grotesk", sans-serif',
+              fontWeight: '500',
               letterSpacing: '1px',
-              fontFamily: 'var(--font-sans), system-ui, sans-serif'
-            }}>Automate the grind. </span>
-            <span style={{
-              fontWeight: '400',
-              color: '#f1f5f9',
-              fontFamily: '"Playfair Display", "Georgia", "Times New Roman", serif',
-              fontStyle: 'italic',
-              textShadow: '0 2px 10px rgba(0,0,0,0.3)'
-            }}>Let your data speak for itself.</span>
-          </p>
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+              position: 'relative',
+              zIndex: 20
+            }}>
+              Automate the grind. Let your data speak for itself.
+            </p>
+          </div>
 
         </div>
 
