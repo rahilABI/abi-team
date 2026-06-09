@@ -126,14 +126,16 @@ export default function Home() {
               Becomes Clarity
             </h2>
             <p style={{
-              fontSize: '1.5rem',
-              color: '#cbd5e1',
-              fontFamily: '"Space Grotesk", sans-serif',
-              fontWeight: '500',
+              fontSize: '2.2rem',
+              color: '#38bdf8',
+              fontFamily: '"Caveat", cursive',
+              fontWeight: '700',
               letterSpacing: '1px',
               textShadow: '0 2px 10px rgba(0,0,0,0.3)',
               position: 'relative',
-              zIndex: 20
+              zIndex: 20,
+              marginLeft: '5rem',
+              transform: 'rotate(-2deg)'
             }}>
               Automate the grind. Let your data speak for itself.
             </p>
