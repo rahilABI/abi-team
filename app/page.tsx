@@ -124,35 +124,30 @@ export default function Home() {
             Where <span className="accent-text">Complexity</span><br />
             Becomes Clarity
           </h2>
-          <div style={{
-            marginTop: '3rem',
+          <p style={{
+            marginTop: '2rem',
             textAlign: 'center',
-            maxWidth: '600px',
+            maxWidth: '800px',
             marginInline: 'auto',
             position: 'relative',
-            zIndex: 20
+            zIndex: 20,
+            fontSize: '1.8rem',
+            lineHeight: '1.4'
           }}>
             <span style={{
-              display: 'block',
               fontWeight: '700',
-              textTransform: 'uppercase',
-              letterSpacing: '4px',
-              fontSize: '1rem',
               color: '#38bdf8',
-              marginBottom: '1rem',
+              letterSpacing: '1px',
               fontFamily: 'var(--font-sans), system-ui, sans-serif'
-            }}>Automate the grind.</span>
+            }}>Automate the grind. </span>
             <span style={{
-              fontSize: '2.4rem',
               fontWeight: '400',
               color: '#f1f5f9',
               fontFamily: '"Playfair Display", "Georgia", "Times New Roman", serif',
               fontStyle: 'italic',
-              lineHeight: '1.3',
-              textShadow: '0 4px 15px rgba(0,0,0,0.4)',
-              display: 'block'
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)'
             }}>Let your data speak for itself.</span>
-          </div>
+          </p>
 
         </div>
 
