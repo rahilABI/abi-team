@@ -179,7 +179,7 @@ export default function Home() {
             { title: 'Productivity', desc: 'What took hours now takes minutes.' },
             { title: 'Security', desc: 'Your policies enforce themselves automatically, with nothing left to chance.' },
             { title: 'Implementation', desc: 'We understand your process and build the automation around it.' },
-            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new dynamics in innovation and problem-solving' }
+            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new innovation and problem-solving.' }
           ].map(({ title, desc }) => (
             <div className="sleek-item" key={title}>
               <strong className="heading-text">{title}</strong>
