@@ -121,7 +121,7 @@ export default function Home() {
         <div className="block-group" style={{ marginBottom: 0 }}>
 
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
-            <h2 className="modern-title" style={{ marginTop: '8rem', marginBottom: '3rem', textAlign: 'left', fontSize: 'clamp(3.8rem, 7.6vw, 7.1rem)', lineHeight: '1.05' }}>
+            <h2 className="modern-title" style={{ marginTop: '4rem', marginBottom: '3rem', textAlign: 'left', fontSize: 'clamp(3.8rem, 7.6vw, 7.1rem)', lineHeight: '1.05' }}>
               Where <span className="accent-text">Complexity</span><br />
               <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>
                 Becomes <span style={{ position: 'relative' }}>
@@ -150,7 +150,7 @@ export default function Home() {
         </div>
 
         {/* Action Buttons */}
-        <div className="text-protect" style={{ display: 'flex', gap: '2rem', marginTop: '10rem', justifyContent: 'center', position: 'relative', zIndex: 20 }}>
+        <div className="text-protect" style={{ display: 'flex', gap: '2rem', marginTop: '18rem', justifyContent: 'center', position: 'relative', zIndex: 20 }}>
             <a href="/projects" style={{ padding: '1.2rem 4rem', fontSize: '1.2rem', background: 'rgba(56, 189, 248, 0.15)', backdropFilter: 'blur(10px)', color: '#ffffff', textShadow: '0 0 8px rgba(255,255,255,0.6)', borderRadius: '50px', border: '1px solid rgba(226, 232, 240, 0.4)', textDecoration: 'none', fontWeight: '800', display: 'inline-block', transition: 'all 0.3s ease' }} onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.3)'; e.currentTarget.style.transform = 'translateY(-2px)'; }} onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)'; e.currentTarget.style.transform = 'translateY(0)'; }}>Explore Projects</a>
             <a href="/query" style={{ padding: '1.2rem 4rem', fontSize: '1.2rem', background: 'rgba(56, 189, 248, 0.15)', backdropFilter: 'blur(10px)', color: '#ffffff', textShadow: '0 0 8px rgba(255,255,255,0.6)', borderRadius: '50px', border: '1px solid rgba(226, 232, 240, 0.4)', textDecoration: 'none', fontWeight: '800', display: 'inline-block', transition: 'all 0.3s ease' }} onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.3)'; e.currentTarget.style.transform = 'translateY(-2px)'; }} onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(56, 189, 248, 0.15)'; e.currentTarget.style.transform = 'translateY(0)'; }}>Let&apos;s Build!</a>
         </div>
