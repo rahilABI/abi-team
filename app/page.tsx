@@ -121,25 +121,30 @@ export default function Home() {
         <div className="block-group" style={{ marginBottom: 0 }}>
 
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
-            <h2 className="modern-title" style={{ marginTop: '12rem', marginBottom: '0.5rem', textAlign: 'left', fontSize: '5rem' }}>
+            <h2 className="modern-title" style={{ marginTop: '12rem', marginBottom: '3rem', textAlign: 'left', fontSize: '48px' }}>
               Where <span className="accent-text">Complexity</span><br />
-              <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>Becomes Clarity</span>
+              <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>
+                Becomes <span style={{ position: 'relative' }}>
+                  Clarity
+                  <span style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: '100%',
+                    paddingTop: '0.5rem',
+                    fontSize: '18px',
+                    color: '#ffffff',
+                    fontFamily: '"Times New Roman", Times, serif',
+                    fontWeight: '900',
+                    letterSpacing: '1px',
+                    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                    whiteSpace: 'nowrap',
+                    fontStyle: 'normal'
+                  }}>
+                    Automate the grind. Let your data speak for itself.
+                  </span>
+                </span>
+              </span>
             </h2>
-            <p style={{
-              fontSize: '18px',
-              color: '#ffffff',
-              fontFamily: '"Times New Roman", Times, serif',
-              fontWeight: '900',
-              letterSpacing: '1px',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-              position: 'relative',
-              zIndex: 20,
-              marginLeft: '12.5rem',
-              marginTop: '0',
-              fontStyle: 'normal'
-            }}>
-              Automate the grind. Let your data speak for itself.
-            </p>
           </div>
 
         </div>
