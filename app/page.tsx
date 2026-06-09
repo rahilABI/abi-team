@@ -134,8 +134,7 @@ export default function Home() {
               textShadow: '0 2px 10px rgba(0,0,0,0.3)',
               position: 'relative',
               zIndex: 20,
-              marginLeft: '5rem',
-              transform: 'rotate(-2deg)'
+              marginLeft: '5rem'
             }}>
               Automate the grind. Let your data speak for itself.
             </p>
