@@ -121,30 +121,25 @@ export default function Home() {
         <div className="block-group" style={{ marginBottom: 0 }}>
 
           <div style={{ display: 'inline-block', textAlign: 'left' }}>
-            <h2 className="modern-title" style={{ marginTop: '4rem', marginBottom: '3rem', textAlign: 'left', fontSize: 'clamp(3.8rem, 7.6vw, 7.1rem)', lineHeight: '1.05' }}>
+            <h2 className="modern-title" style={{ marginTop: '4rem', marginBottom: '1.5rem', textAlign: 'left', fontSize: 'clamp(3.8rem, 7.6vw, 7.1rem)', lineHeight: '1.05' }}>
               Where <span className="accent-text">Complexity</span><br />
               <span style={{ display: 'inline-block', marginLeft: '0.6em' }}>
-                Becomes <span style={{ position: 'relative' }}>
-                  Clarity
-                  <span style={{
-                    position: 'absolute',
-                    left: 0,
-                    top: '100%',
-                    paddingTop: '0.5rem',
-                    fontSize: '28px',
-                    color: 'rgba(255, 255, 255, 0.85)',
-                    fontFamily: '"Comfortaa", sans-serif',
-                    fontWeight: '700',
-                    letterSpacing: '1.5px',
-                    textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                    whiteSpace: 'nowrap',
-                    fontStyle: 'normal'
-                  }}>
-                    Automate the grind. Let your data speak for itself.
-                  </span>
-                </span>
+                Becomes Clarity
               </span>
             </h2>
+          </div>
+          <div style={{
+            textAlign: 'center',
+            fontSize: '28px',
+            color: 'rgba(255, 255, 255, 0.85)',
+            fontFamily: '"Comfortaa", sans-serif',
+            fontWeight: '700',
+            letterSpacing: '1.5px',
+            textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+            whiteSpace: 'nowrap',
+            fontStyle: 'normal'
+          }}>
+            Automate the grind. Let your data speak for itself.
           </div>
 
         </div>
