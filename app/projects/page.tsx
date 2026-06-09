@@ -322,6 +322,18 @@ export default function ProjectsPage() {
                                                             <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Error Reduced</span>
                                                             <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#34d399' }}>{project.metrics.error_rate_reduced ? project.metrics.error_rate_reduced + '%' : 'N/A'}</span>
                                                         </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Security Rate</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.security_rate ? project.metrics.security_rate + '%' : 'N/A'}</span>
+                                                        </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Visibility</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#38bdf8' }}>{project.metrics.data_visibility_improved ? project.metrics.data_visibility_improved + 'x' : 'N/A'}</span>
+                                                        </div>
+                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Optimization</span>
+                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#34d399' }}>{project.metrics.optimization_rate ? project.metrics.optimization_rate + '%' : 'N/A'}</span>
+                                                        </div>
                                                     </div>
 
                                                     {/* Before / After Comparisons */}

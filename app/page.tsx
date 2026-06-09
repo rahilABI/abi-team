@@ -42,8 +42,7 @@ export default function Home() {
   const [metrics, setMetrics] = useState([
     { value: '...', label: 'Total Projects' },
     { value: '...', label: 'Total Hours Saved' },
-    { value: '...', label: 'Adoption Rate' },
-    { value: '...', label: 'Data Visibility Improved' },
+    { value: '...', label: 'Data Visibility Improved and Secured' },
     { value: '...', label: 'Optimization' }
   ]);
 
@@ -59,8 +58,7 @@ export default function Home() {
         setMetrics([
             { value: '0', label: 'Total Projects' },
             { value: '0', label: 'Total Hours Saved' },
-            { value: '0%', label: 'Adoption Rate' },
-            { value: '0x', label: 'Data Visibility Improved' },
+            { value: '0x', label: 'Data Visibility Improved and Secured' },
             { value: 'High', label: 'Optimization' }
         ]);
         return;
@@ -79,7 +77,9 @@ export default function Home() {
       const totalProjects = publishedTicketIds.length;
       let totalHours = 0;
       let adoptionSum = 0;
-      let adoptionCount = 0;
+      let visibilityMax = 0;
+      let optSum = 0;
+      let optCount = 0;
 
       metricsData.forEach(m => {
         if (m.total_hours_saved) totalHours += m.total_hours_saved;
@@ -87,20 +87,27 @@ export default function Home() {
           adoptionSum += m.adoption_rate;
           adoptionCount++;
         }
+        if (m.data_visibility_improved && m.data_visibility_improved > visibilityMax) {
+          visibilityMax = m.data_visibility_improved;
+        }
+        if (m.optimization_rate) {
+          optSum += m.optimization_rate;
+          optCount++;
+        }
       });
 
       const avgAdoption = adoptionCount > 0 ? Math.round(adoptionSum / adoptionCount) : 0;
+      const avgOptimization = optCount > 0 ? Math.round(optSum / optCount) : 100;
       const formattedHours = totalHours > 0 ? `${totalHours.toLocaleString()}+` : '0';
       const formattedAdoption = `${avgAdoption}%`;
       
-      const repVisibility = metricsData.find(m => m.data_visibility_improved)?.data_visibility_improved || '3x Improved';
-      const repOptimization = metricsData.find(m => m.optimization_rate)?.optimization_rate || '100% Secured';
+      const repVisibility = visibilityMax > 0 ? `${visibilityMax}x` : '3x';
+      const repOptimization = `${avgOptimization}%`;
 
       setMetrics([
         { value: totalProjects.toString(), label: 'Total Projects' },
         { value: formattedHours, label: 'Total Hours Saved' },
-        { value: formattedAdoption, label: 'Adoption Rate' },
-        { value: repVisibility, label: 'Data Visibility Improved' },
+        { value: repVisibility, label: 'Data Visibility Improved and Secured' },
         { value: repOptimization, label: 'Optimization' }
       ]);
     }
