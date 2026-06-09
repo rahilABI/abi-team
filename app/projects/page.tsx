@@ -304,68 +304,62 @@ export default function ProjectsPage() {
                                                 <div style={{ marginTop: hasImages ? '2rem' : '0', padding: '1.5rem', background: 'rgba(15, 23, 42, 0.4)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                                     <h4 style={{ fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px', color: '#5eead4', marginBottom: '1.5rem', fontWeight: '800' }}>Impact & Metrics</h4>
                                                     
-                                                    {/* KPI Grid */}
-                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Adoption Rate</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.adoption_rate ? project.metrics.adoption_rate + '%' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>SLA Compliance</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.sla_compliance ? project.metrics.sla_compliance + '%' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Hours Saved</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#38bdf8' }}>{project.metrics.total_hours_saved ? project.metrics.total_hours_saved.toLocaleString() + '+' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Error Reduced</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#34d399' }}>{project.metrics.error_rate_reduced ? project.metrics.error_rate_reduced + '%' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Security Rate</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#f8fafc' }}>{project.metrics.security_rate ? project.metrics.security_rate + '%' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Visibility</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#38bdf8' }}>{project.metrics.data_visibility_improved ? project.metrics.data_visibility_improved + 'x' : 'N/A'}</span>
-                                                        </div>
-                                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                            <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '0.5rem' }}>Optimization</span>
-                                                            <span style={{ fontSize: '1.5rem', fontWeight: '800', color: '#34d399' }}>{project.metrics.optimization_rate ? project.metrics.optimization_rate + '%' : 'N/A'}</span>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Before / After Comparisons */}
-                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', borderTop: '1px dashed rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
-                                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                                                            {project.metrics.process_time_before && (
-                                                                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
-                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>Process Time Before</span>
-                                                                    <span style={{ color: '#f1f5f9', fontWeight: '600', fontSize: '0.9rem' }}>{project.metrics.process_time_before}</span>
-                                                                </div>
-                                                            )}
-                                                            {project.metrics.process_time_after && (
-                                                                <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1rem', borderRadius: '8px' }}>
-                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#34d399', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>Process Time After</span>
-                                                                    <span style={{ color: '#a7f3d0', fontWeight: '600', fontSize: '0.9rem' }}>{project.metrics.process_time_after}</span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                        
-                                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+                                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                                                        {/* Before Card */}
+                                                        <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', padding: '1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
+                                                            <h5 style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#94a3b8', fontWeight: '800', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#f43f5e', display: 'inline-block' }}></span>
+                                                                Before Implementation
+                                                            </h5>
                                                             {project.metrics.process_before && (
-                                                                <div style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px' }}>
-                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#94a3b8', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>How Is This Process Currently Being Handled?</span>
-                                                                    <span style={{ color: '#f1f5f9', fontWeight: '500', fontSize: '0.95rem', lineHeight: '1.6' }}>{project.metrics.process_before}</span>
+                                                                <ul style={{ color: '#f1f5f9', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
+                                                                    {project.metrics.process_before.split('.').map((s: string) => s.trim()).filter((s: string) => s.length > 0).map((sentence: string, idx: number) => (
+                                                                        <li key={idx} style={{ marginBottom: '0.5rem' }}>{sentence}.</li>
+                                                                    ))}
+                                                                </ul>
+                                                            )}
+                                                            {(project.metrics.process_time_before || project.metrics.error_rate_before) && (
+                                                                <div style={{ marginTop: 'auto', background: 'rgba(244, 63, 94, 0.05)', borderRadius: '8px', padding: '1rem', borderLeft: '2px solid rgba(244, 63, 94, 0.5)' }}>
+                                                                    <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                                                                        {`Previously, this process required ${project.metrics.process_time_before || 'significant time'}${project.metrics.error_rate_before ? ` and suffered from an error rate of ${project.metrics.error_rate_before}` : ''}.`}
+                                                                    </p>
                                                                 </div>
                                                             )}
+                                                        </div>
+
+                                                        {/* After Card */}
+                                                        <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1.5rem', borderRadius: '12px', display: 'flex', flexDirection: 'column' }}>
+                                                            <h5 style={{ fontSize: '0.75rem', textTransform: 'uppercase', color: '#34d399', fontWeight: '800', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                                                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', display: 'inline-block' }}></span>
+                                                                After Implementation
+                                                            </h5>
                                                             {project.metrics.process_after && (
-                                                                <div style={{ background: 'rgba(52, 211, 153, 0.05)', border: '1px solid rgba(52, 211, 153, 0.2)', padding: '1rem', borderRadius: '8px' }}>
-                                                                    <span style={{ fontSize: '0.65rem', textTransform: 'uppercase', color: '#34d399', display: 'block', marginBottom: '0.4rem', fontWeight: 'bold' }}>How Will This Process Be Handled After?</span>
-                                                                    <span style={{ color: '#a7f3d0', fontWeight: '500', fontSize: '0.95rem', lineHeight: '1.6' }}>{project.metrics.process_after}</span>
-                                                                </div>
+                                                                <ul style={{ color: '#a7f3d0', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
+                                                                    {project.metrics.process_after.split('.').map((s: string) => s.trim()).filter((s: string) => s.length > 0).map((sentence: string, idx: number) => (
+                                                                        <li key={idx} style={{ marginBottom: '0.5rem' }}>{sentence}.</li>
+                                                                    ))}
+                                                                </ul>
                                                             )}
+                                                            
+                                                            <div style={{ marginTop: 'auto', background: 'rgba(52, 211, 153, 0.05)', borderRadius: '8px', padding: '1rem', borderLeft: '2px solid rgba(52, 211, 153, 0.5)' }}>
+                                                                <p style={{ color: '#6ee7b7', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
+                                                                    {`With the new solution, process time was reduced to ${project.metrics.process_time_after || 'a fraction of the time'}${project.metrics.error_rate_after ? ` and the error rate dropped to ${project.metrics.error_rate_after}` : ''}. `}
+                                                                    
+                                                                    {project.metrics.total_hours_saved && `This efficiency gain resulted in over ${project.metrics.total_hours_saved.toLocaleString()} total hours saved. `}
+                                                                    
+                                                                    {project.metrics.data_visibility_improved && `Data visibility was enhanced by ${project.metrics.data_visibility_improved}x, `}
+                                                                    {project.metrics.optimization_rate && `achieving an optimization rate of ${project.metrics.optimization_rate}%. `}
+                                                                    
+                                                                    {(project.metrics.adoption_rate || project.metrics.sla_compliance || project.metrics.security_rate) && (
+                                                                        `The system boasts ` + 
+                                                                        [
+                                                                            project.metrics.adoption_rate ? `a ${project.metrics.adoption_rate}% adoption rate` : null,
+                                                                            project.metrics.sla_compliance ? `${project.metrics.sla_compliance}% SLA compliance` : null,
+                                                                            project.metrics.security_rate ? `a ${project.metrics.security_rate}% security score` : null
+                                                                        ].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' and $1') + `.`
+                                                                    )}
+                                                                </p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     
