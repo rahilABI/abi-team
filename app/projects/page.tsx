@@ -47,6 +47,22 @@ const getCategoryIcon = (type: string) => {
     }
 };
 
+const MetricText = ({ text, highlightColor }: { text: string, highlightColor: string }) => {
+    if (!text) return null;
+    const regex = /(\b\d+(?:,\d+)*(?:\.\d+)?\s*(?:%|x|s|hours?|minutes?|seconds?|days?|weeks?|months?)?\b|\bInstant(?:aneous)?\b|\bReal-time\b)/gi;
+    const parts = text.split(regex);
+    return (
+        <>
+            {parts.map((part, i) => {
+                if (i % 2 === 1) {
+                    return <strong key={i} style={{ color: highlightColor, fontWeight: '900' }}>{part}</strong>;
+                }
+                return <span key={i}>{part}</span>;
+            })}
+        </>
+    );
+};
+
 export default function ProjectsPage() {
     const [filter, setFilter] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
@@ -312,16 +328,16 @@ export default function ProjectsPage() {
                                                                 Before Implementation
                                                             </h5>
                                                             {project.metrics.process_before && (
-                                                                <ul style={{ color: '#f1f5f9', fontSize: '0.95rem', lineHeight: '1.6', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
+                                                                <ul style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.7', marginBottom: '1.5rem', paddingLeft: '1.2rem', listStyleType: 'disc' }}>
                                                                     {project.metrics.process_before.split('.').map((s: string) => s.trim()).filter((s: string) => s.length > 0).map((sentence: string, idx: number) => (
-                                                                        <li key={idx} style={{ marginBottom: '0.5rem' }}>{sentence}.</li>
+                                                                        <li key={idx} style={{ marginBottom: '0.6rem' }}><MetricText text={sentence + '.'} highlightColor="#fb7185" /></li>
                                                                     ))}
                                                                 </ul>
                                                             )}
                                                             {(project.metrics.process_time_before || project.metrics.error_rate_before) && (
                                                                 <div style={{ marginTop: 'auto', background: 'rgba(244, 63, 94, 0.05)', borderRadius: '8px', padding: '1rem', borderLeft: '2px solid rgba(244, 63, 94, 0.5)' }}>
-                                                                    <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.6', margin: 0 }}>
-                                                                        {`Previously, this process required ${project.metrics.process_time_before || 'significant time'}${project.metrics.error_rate_before ? ` and suffered from an error rate of ${project.metrics.error_rate_before}` : ''}.`}
+                                                                    <p style={{ color: '#cbd5e1', fontSize: '0.9rem', lineHeight: '1.7', margin: 0 }}>
+                                                                        Previously, this process required <strong style={{color:'#fb7185', fontWeight:'900'}}>{project.metrics.process_time_before || 'significant time'}</strong>{project.metrics.error_rate_before ? <> and suffered from an error rate of <strong style={{color:'#fb7185', fontWeight:'900'}}>{project.metrics.error_rate_before}</strong></> : ''}.
                                                                     </p>
                                                                 </div>
                                                             )}
@@ -333,31 +349,35 @@ export default function ProjectsPage() {
                                                                 <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#34d399', display: 'inline-block' }}></span>
                                                                 After Implementation
                                                             </h5>
-                                                            <ul style={{ color: '#a7f3d0', fontSize: '0.95rem', lineHeight: '1.6', paddingLeft: '1.2rem', listStyleType: 'disc', margin: 0 }}>
-                                                                <li style={{ marginBottom: '0.5rem' }}>
-                                                                    {`With the new solution, process time was reduced to ${project.metrics.process_time_after || 'a fraction of the time'}${project.metrics.error_rate_after ? ` and the error rate dropped to ${project.metrics.error_rate_after}` : ''}.`}
+                                                            <ul style={{ color: '#cbd5e1', fontSize: '0.95rem', lineHeight: '1.7', paddingLeft: '1.2rem', listStyleType: 'disc', margin: 0 }}>
+                                                                <li style={{ marginBottom: '0.6rem' }}>
+                                                                    With the new solution, process time was reduced to <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.process_time_after || 'a fraction of the time'}</strong>
+                                                                    {project.metrics.error_rate_after ? <> and the error rate dropped to <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.error_rate_after}</strong></> : ''}.
                                                                 </li>
                                                                 {project.metrics.total_hours_saved && (
-                                                                    <li style={{ marginBottom: '0.5rem' }}>
-                                                                        {`This efficiency gain resulted in over ${project.metrics.total_hours_saved.toLocaleString()} total hours saved.`}
+                                                                    <li style={{ marginBottom: '0.6rem' }}>
+                                                                        This efficiency gain resulted in over <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.total_hours_saved.toLocaleString()} total hours</strong> saved.
                                                                     </li>
                                                                 )}
                                                                 {(project.metrics.data_visibility_improved || project.metrics.optimization_rate) && (
-                                                                    <li style={{ marginBottom: '0.5rem' }}>
-                                                                        {project.metrics.data_visibility_improved ? `Data visibility was enhanced by ${project.metrics.data_visibility_improved}x` : ''}
+                                                                    <li style={{ marginBottom: '0.6rem' }}>
+                                                                        {project.metrics.data_visibility_improved ? <>Data visibility was enhanced by <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.data_visibility_improved}x</strong></> : ''}
                                                                         {project.metrics.data_visibility_improved && project.metrics.optimization_rate ? ', ' : ''}
-                                                                        {project.metrics.optimization_rate ? `${project.metrics.data_visibility_improved ? 'achieving' : 'Achieving'} an optimization rate of ${project.metrics.optimization_rate}%` : ''}
-                                                                        .
+                                                                        {project.metrics.optimization_rate ? <>{project.metrics.data_visibility_improved ? 'achieving' : 'Achieving'} an optimization rate of <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.optimization_rate}%</strong></> : ''}.
                                                                     </li>
                                                                 )}
                                                                 {(project.metrics.adoption_rate || project.metrics.sla_compliance || project.metrics.security_rate) && (
-                                                                    <li>
-                                                                        {`The system boasts ` + 
-                                                                        [
-                                                                            project.metrics.adoption_rate ? `a ${project.metrics.adoption_rate}% adoption rate` : null,
-                                                                            project.metrics.sla_compliance ? `${project.metrics.sla_compliance}% SLA compliance` : null,
-                                                                            project.metrics.security_rate ? `a ${project.metrics.security_rate}% security score` : null
-                                                                        ].filter(Boolean).join(', ').replace(/, ([^,]*)$/, ' and $1') + `.`}
+                                                                    <li style={{ marginBottom: '0.6rem' }}>
+                                                                        The system boasts{' '}
+                                                                        {[
+                                                                            project.metrics.adoption_rate ? <span key="adoption">a <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.adoption_rate}%</strong> adoption rate</span> : null,
+                                                                            project.metrics.sla_compliance ? <span key="sla"><strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.sla_compliance}%</strong> SLA compliance</span> : null,
+                                                                            project.metrics.security_rate ? <span key="sec">a <strong style={{color:'#34d399', fontWeight:'900'}}>{project.metrics.security_rate}%</strong> security score</span> : null
+                                                                        ].filter(Boolean).reduce((prev, curr, i, arr) => {
+                                                                            if (i === 0) return curr;
+                                                                            if (i === arr.length - 1) return <>{prev} and {curr}</>;
+                                                                            return <>{prev}, {curr}</>;
+                                                                        }, null as React.ReactNode)}.
                                                                     </li>
                                                                 )}
                                                             </ul>
