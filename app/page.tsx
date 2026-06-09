@@ -162,7 +162,7 @@ export default function Home() {
         </p>
         <div className="sleek-masonry">
           {[
-            { title: 'Pacing', desc: 'What took hours now takes minutes.' },
+            { title: 'Productivity', desc: 'What took hours now takes minutes.' },
             { title: 'Security', desc: 'Your policies enforce themselves automatically, with nothing left to chance.' },
             { title: 'Implementation', desc: 'We understand your process and build the automation around it.' },
             { title: 'Opportunities', desc: 'Discover where automation simplifies your workflow and complex operations.' }
