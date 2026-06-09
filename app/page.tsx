@@ -128,14 +128,15 @@ export default function Home() {
             <p style={{
               fontSize: '2.2rem',
               color: '#ffffff',
-              fontFamily: '"Caveat", cursive',
-              fontWeight: '700',
+              fontFamily: '"Times New Roman", Times, serif',
+              fontWeight: '900',
               letterSpacing: '1px',
               textShadow: '0 2px 10px rgba(0,0,0,0.5)',
               position: 'relative',
               zIndex: 20,
               marginLeft: '11rem',
-              marginTop: '0'
+              marginTop: '0',
+              fontStyle: 'normal'
             }}>
               Automate the grind. Let your data speak for itself.
             </p>
