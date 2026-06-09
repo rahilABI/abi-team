@@ -177,18 +177,16 @@ export default function Home() {
         </p>
         <div className="sleek-masonry">
           {[
-            { title: 'Hours Saved', desc: 'What took hours now takes minutes.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 6, ease: "linear" } } },
-            { title: 'Implementation', desc: 'We understand your process and build the automation around it.', icon: Settings, animProps: { animate: { rotate: -360 }, transition: { repeat: Infinity, duration: 8, ease: "linear" } } },
-            { title: 'Quality', desc: 'Automation keeps your processes aligned to your standards.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 10, ease: "linear" } } },
-            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new innovation and problem-solving.', icon: Settings, animProps: { animate: { rotate: -360 }, transition: { repeat: Infinity, duration: 5, ease: "linear" } } }
+            { title: 'Hours Saved', desc: 'What took hours now takes minutes.', icon: Clock, animProps: { animate: { rotate: [0, -15, 15, -15, 15, 0] }, transition: { repeat: Infinity, duration: 2, repeatDelay: 1 } } },
+            { title: 'Implementation', desc: 'We understand your process and build the automation around it.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 4, ease: "linear" } } },
+            { title: 'Quality', desc: 'Automation keeps your processes aligned to your standards.', icon: ShieldCheck, animProps: { animate: { scale: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2 } } },
+            { title: 'Opportunities', desc: 'Automation enhances opportunities, opening doors for new innovation and problem-solving.', icon: Ticket, animProps: { animate: { rotateY: [0, 180, 360] }, transition: { repeat: Infinity, duration: 3, ease: "linear" } } }
           ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text flex items-center gap-2 mb-2">
-                <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
-                  </motion.div>
-                </div>
+              <strong className="heading-text flex items-center gap-3 mb-2">
+                <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
+                </motion.div>
                 {title}
               </strong>
               <span className="matter-text">{desc}</span>
@@ -218,13 +216,11 @@ export default function Home() {
             { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 4, repeatDelay: 1.5, ease: "circIn" } } }
           ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text flex items-center gap-2 mb-2 justify-end">
+              <strong className="heading-text flex items-center gap-3 mb-2 justify-end">
                 {title}
-                <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
-                  </motion.div>
-                </div>
+                <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Icon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
+                </motion.div>
               </strong>
               <span className="matter-text">{desc}</span>
             </div>
