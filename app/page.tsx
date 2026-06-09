@@ -126,7 +126,7 @@ export default function Home() {
               <span style={{ display: 'inline-block', marginLeft: '1.2em' }}>Becomes Clarity</span>
             </h2>
             <p style={{
-              fontSize: '12px',
+              fontSize: '18px',
               color: '#ffffff',
               fontFamily: '"Times New Roman", Times, serif',
               fontWeight: '900',
