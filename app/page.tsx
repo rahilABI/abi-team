@@ -185,7 +185,7 @@ export default function Home() {
             <div className="sleek-item" key={title}>
               <strong className="heading-text flex items-center gap-2 mb-2">
                 <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <motion.div animate={animProps.animate} transition={animProps.transition} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
                   </motion.div>
                 </div>
@@ -219,12 +219,12 @@ export default function Home() {
           ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
               <strong className="heading-text flex items-center gap-2 mb-2 justify-end">
+                {title}
                 <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                  <motion.div animate={animProps.animate} transition={animProps.transition} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Icon className="w-5 h-5 text-white/50 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
                   </motion.div>
                 </div>
-                {title}
               </strong>
               <span className="matter-text">{desc}</span>
             </div>
