@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings } from 'lucide-react';
+import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings, Dumbbell } from 'lucide-react';
 
 const typewriterContainer = {
   hidden: { opacity: 1 },
@@ -211,16 +211,21 @@ export default function Home() {
         <div className="sleek-masonry">
           {[
             { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
-            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Activity, animProps: { animate: { scale: [1, 1.3, 1, 1.3, 1] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
+            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Dumbbell, animProps: { animate: { y: [0, -6, 0] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
             { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
-            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 4, repeatDelay: 1.5, ease: "circIn" } } }
-          ].map(({ title, desc, icon: Icon, animProps }) => (
+            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 4, repeatDelay: 1.5, ease: "circIn" } }, extraIcon: TrendingUp, extraAnimProps: { animate: { y: [0, -6, 0], scale: [1, 1.1, 1] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } }
+          ].map(({ title, desc, icon: Icon, animProps, extraIcon: ExtraIcon, extraAnimProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text flex items-center gap-3 mb-2 justify-end">
+              <strong className="heading-text flex items-center gap-1 mb-2 justify-end">
                 {title}
                 <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
                 </motion.div>
+                {ExtraIcon && extraAnimProps && (
+                  <motion.div animate={extraAnimProps.animate} transition={extraAnimProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <ExtraIcon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
+                  </motion.div>
+                )}
               </strong>
               <span className="matter-text">{desc}</span>
             </div>
