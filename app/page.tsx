@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings, Dumbbell } from 'lucide-react';
+import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings, Scale } from 'lucide-react';
 
 const typewriterContainer = {
   hidden: { opacity: 1 },
@@ -211,7 +211,7 @@ export default function Home() {
         <div className="sleek-masonry">
           {[
             { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
-            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Dumbbell, animProps: { animate: { y: [0, -6, 0], rotate: -45 }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
+            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Scale, animProps: { animate: { rotate: [-15, 15, -15] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
             { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
             { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0, 1] }, transition: { repeat: Infinity, duration: 0.2, repeatDelay: 3, ease: "easeInOut" } } }
           ].map(({ title, desc, icon: Icon, animProps }) => (
