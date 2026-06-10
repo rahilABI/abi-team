@@ -4,6 +4,80 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { Clock, Cog, ShieldCheck, Ticket, BarChart2, Activity, TrendingUp, Eye, Settings, Scale } from 'lucide-react';
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+};
+
+const CustomTarazu = ({ className }: { className?: string }) => {
+  return (
+    <svg viewBox="0 0 100 100" className={className} overflow="visible" style={{ width: '1.5rem', height: '1.5rem', padding: '0.1rem' }}>
+       {/* Stand */}
+       <line x1="50" y1="20" x2="50" y2="85" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+       <line x1="30" y1="85" x2="70" y2="85" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+       <circle cx="50" cy="20" r="3" fill="currentColor" />
+       
+       {/* Crossbar group (animates rotation) */}
+       <motion.g 
+          animate={{ rotate: [-10, 10, -10] }} 
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          style={{ transformOrigin: '50px 20px' }}
+       >
+          {/* Crossbar */}
+          <line x1="15" y1="20" x2="85" y2="20" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+          
+          {/* Left Pan Group */}
+          <motion.g
+            animate={{ rotate: [10, -10, 10] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            style={{ transformOrigin: '15px 20px' }}
+          >
+             {/* Strings */}
+             <line x1="15" y1="20" x2="5" y2="60" stroke="currentColor" strokeWidth="2" />
+             <line x1="15" y1="20" x2="25" y2="60" stroke="currentColor" strokeWidth="2" />
+             {/* Pan */}
+             <path d="M 0 60 Q 15 75 30 60 Z" fill="none" stroke="currentColor" strokeWidth="4" />
+             
+             {/* Data weighing (Database icon approx) */}
+             <g stroke="#38bdf8" strokeWidth="3" fill="none">
+               <ellipse cx="15" cy="45" rx="8" ry="3" />
+               <path d="M 7 45 v 8 a 8 3 0 0 0 16 0 v -8" />
+             </g>
+          </motion.g>
+
+          {/* Right Pan Group */}
+          <motion.g
+            animate={{ rotate: [10, -10, 10] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            style={{ transformOrigin: '85px 20px' }}
+          >
+             {/* Strings */}
+             <line x1="85" y1="20" x2="75" y2="60" stroke="currentColor" strokeWidth="2" />
+             <line x1="85" y1="20" x2="95" y2="60" stroke="currentColor" strokeWidth="2" />
+             {/* Pan */}
+             <path d="M 70 60 Q 85 75 100 60 Z" fill="none" stroke="currentColor" strokeWidth="4" />
+             
+             {/* Token Drop Animation */}
+             <motion.circle 
+               cx="85" cy="20" r="4" fill="#fbbf24"
+               animate={{ y: [0, 35, 35], opacity: [0, 1, 0] }}
+               transition={{ repeat: Infinity, duration: 1.5, ease: "easeIn" }}
+             />
+             <motion.circle 
+               cx="80" cy="15" r="4" fill="#fbbf24"
+               animate={{ y: [0, 42, 42], opacity: [0, 1, 0] }}
+               transition={{ repeat: Infinity, duration: 1.5, delay: 0.75, ease: "easeIn" }}
+             />
+             {/* Pile of tokens */}
+             <circle cx="85" cy="56" r="4" fill="#fbbf24" />
+             <circle cx="81" cy="54" r="4" fill="#fbbf24" />
+             <circle cx="89" cy="55" r="4" fill="#fbbf24" />
+          </motion.g>
+       </motion.g>
+    </svg>
+  )
+}
+
 const typewriterContainer = {
   hidden: { opacity: 1 },
   visible: {
@@ -211,12 +285,12 @@ export default function Home() {
         <div className="sleek-masonry">
           {[
             { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
-            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Scale, animProps: { animate: { rotate: [-15, 15, -15] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
+            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: CustomTarazu, animProps: { animate: {}, transition: {} } },
             { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
-            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0, 1] }, transition: { repeat: Infinity, duration: 0.2, repeatDelay: 3, ease: "easeInOut" } } }
+            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 0.15, repeatDelay: 3, ease: "easeInOut" } } }
           ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
-              <strong className="heading-text flex items-center gap-1 mb-2 justify-end">
+              <strong className="heading-text flex items-center gap-2 mb-2 justify-start">
                 {title}
                 <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
