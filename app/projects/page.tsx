@@ -72,7 +72,7 @@ export default function ProjectsPage() {
     const ITEMS_PER_PAGE = 7;
     const [typeOptions, setTypeOptions] = useState<string[]>(['All']);
 
-    const [projects, setProjects] = useState<{ticket_id: string, project_name: string, project_solution: string, type: string, outcomes?: any[], attachments?: any[], metrics?: any}[]>([]);
+    const [projects, setProjects] = useState<{ticket_id: string, project_name: string, project_solution: string, type: string, outcomes?: any[], custom_metrics?: any[], attachments?: any[], metrics?: any}[]>([]);
     const [loading, setLoading] = useState(true);
     const [expandedProjects, setExpandedProjects] = useState<Record<string, boolean>>({});
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -127,6 +127,7 @@ export default function ProjectsPage() {
                             project_solution: p.project_description || p.problem_statement || 'No description available.',
                             type: lokkerMap[p.type_looker_id] || 'Uncategorized',
                             outcomes: p.outcomes || [],
+                            custom_metrics: p.custom_metrics || [],
                             attachments: attMap[p.ticket_id] || [],
                             metrics: metric || null
                         };
@@ -248,9 +249,15 @@ export default function ProjectsPage() {
                                                     <span className="ph-category-badge">{project.type}</span>
                                                 </div>
                                                 
-                                                {project.metrics && (
+                                                {(project.metrics || (project.custom_metrics && project.custom_metrics.length > 0)) && (
                                                     <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', justifyContent: 'flex-end', marginLeft: 'auto' }}>
-                                                        {project.metrics.total_hours_saved > 0 && (
+                                                        {project.custom_metrics && project.custom_metrics.map((cm: any, idx: number) => (
+                                                            <div key={`cm-${idx}`} title={cm.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(99, 102, 241, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
+                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>{cm.name}</span>
+                                                                <span style={{ fontSize: '0.85rem', color: '#818cf8', fontWeight: '800' }}>{cm.value}</span>
+                                                            </div>
+                                                        ))}
+                                                        {project.metrics && project.metrics.total_hours_saved > 0 && (
                                                             <div title="Hours Saved" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(56, 189, 248, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
                                                                 <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Hours Saved</span>
                                                                 <span style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: '800' }}>{project.metrics.total_hours_saved.toLocaleString()}</span>
