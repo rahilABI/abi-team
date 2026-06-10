@@ -211,9 +211,9 @@ export default function Home() {
         <div className="sleek-masonry">
           {[
             { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
-            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Dumbbell, animProps: { animate: { y: [0, -6, 0] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
+            { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Dumbbell, animProps: { animate: { y: [0, -6, 0], rotate: -45 }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
             { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
-            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0.1, 1] }, transition: { repeat: Infinity, duration: 4, repeatDelay: 1.5, ease: "circIn" } }, extraIcon: TrendingUp, extraAnimProps: { animate: { y: [0, -6, 0], scale: [1, 1.1, 1] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } }
+            { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0, 1] }, transition: { repeat: Infinity, duration: 0.2, repeatDelay: 3, ease: "easeInOut" } } }
           ].map(({ title, desc, icon: Icon, animProps, extraIcon: ExtraIcon, extraAnimProps }) => (
             <div className="sleek-item" key={title}>
               <strong className="heading-text flex items-center gap-1 mb-2 justify-end">
