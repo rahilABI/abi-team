@@ -243,54 +243,54 @@ export default function ProjectsPage() {
 
                                         {/* Content */}
                                         <div className="ph-content">
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem', gap: '1rem', flexWrap: 'wrap' }}>
-                                                <div className="ph-name-row" style={{ marginBottom: 0 }}>
+                                            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: isExpanded ? 'flex-start' : 'center', marginBottom: '0.4rem', gap: '1rem', flexWrap: isExpanded ? 'wrap' : 'nowrap', width: '100%', overflow: 'hidden' }}>
+                                                <div className="ph-name-row" style={{ marginBottom: 0, flexShrink: 0 }}>
                                                     <span className="ph-name" style={{ fontSize: '1.25rem' }}>{project.project_name}</span>
                                                     <span className="ph-category-badge">{project.type}</span>
                                                 </div>
                                                 
                                                 {(project.metrics || (project.custom_metrics && project.custom_metrics.length > 0)) && (
-                                                    <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap', justifyContent: 'flex-end', marginLeft: 'auto' }}>
+                                                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', overflow: 'hidden', maxHeight: isExpanded ? 'none' : '1.6rem', justifyContent: 'flex-end', marginLeft: 'auto', paddingBottom: '0.2rem', maxWidth: '100%' }}>
                                                         {project.custom_metrics && project.custom_metrics.map((cm: any, idx: number) => (
-                                                            <div key={`cm-${idx}`} title={cm.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(99, 102, 241, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(99, 102, 241, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>{cm.name}</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#818cf8', fontWeight: '800' }}>{cm.value}</span>
+                                                            <div key={`cm-${idx}`} title={cm.name} style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#818cf8', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{cm.name}:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#818cf8', fontWeight: '800' }}>{cm.value}</span>
                                                             </div>
                                                         ))}
                                                         {project.metrics && project.metrics.total_hours_saved > 0 && (
-                                                            <div title="Hours Saved" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(56, 189, 248, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Hours Saved</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: '800' }}>{project.metrics.total_hours_saved.toLocaleString()}</span>
+                                                            <div title="Hours Saved" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Hours:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#38bdf8', fontWeight: '800' }}>{project.metrics.total_hours_saved.toLocaleString()}</span>
                                                             </div>
                                                         )}
-                                                        {project.metrics.data_visibility_improved > 0 && (
-                                                            <div title="Visibility Improved" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(167, 139, 250, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(167, 139, 250, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Visibility</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#a78bfa', fontWeight: '800' }}>{project.metrics.data_visibility_improved}x</span>
+                                                        {project.metrics?.data_visibility_improved > 0 && (
+                                                            <div title="Visibility Improved" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#a78bfa', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Visibility:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#a78bfa', fontWeight: '800' }}>{project.metrics.data_visibility_improved}x</span>
                                                             </div>
                                                         )}
-                                                        {project.metrics.optimization_rate > 0 && (
-                                                            <div title="Optimization Rate" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(52, 211, 153, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(52, 211, 153, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Optimized</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#34d399', fontWeight: '800' }}>{project.metrics.optimization_rate}%</span>
+                                                        {project.metrics?.optimization_rate > 0 && (
+                                                            <div title="Optimization Rate" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#34d399', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Optimized:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#34d399', fontWeight: '800' }}>{project.metrics.optimization_rate}%</span>
                                                             </div>
                                                         )}
-                                                        {project.metrics.adoption_rate > 0 && (
-                                                            <div title="Adoption Rate" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(251, 191, 36, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(251, 191, 36, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Adoption</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#fbbf24', fontWeight: '800' }}>{project.metrics.adoption_rate}%</span>
+                                                        {project.metrics?.adoption_rate > 0 && (
+                                                            <div title="Adoption Rate" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#fbbf24', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Adoption:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#fbbf24', fontWeight: '800' }}>{project.metrics.adoption_rate}%</span>
                                                             </div>
                                                         )}
-                                                        {project.metrics.security_rate > 0 && (
-                                                            <div title="Security Score" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(244, 63, 94, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(244, 63, 94, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>Security</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#fb7185', fontWeight: '800' }}>{project.metrics.security_rate}%</span>
+                                                        {project.metrics?.security_rate > 0 && (
+                                                            <div title="Security Score" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#fb7185', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Security:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#fb7185', fontWeight: '800' }}>{project.metrics.security_rate}%</span>
                                                             </div>
                                                         )}
-                                                        {project.metrics.sla_compliance > 0 && (
-                                                            <div title="SLA Compliance" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0.4rem 0.8rem', background: 'rgba(232, 121, 249, 0.08)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', border: '1px solid rgba(232, 121, 249, 0.2)', borderRadius: '8px', minWidth: '75px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-                                                                <span style={{ fontSize: '0.55rem', color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: '0.15rem' }}>SLA</span>
-                                                                <span style={{ fontSize: '0.85rem', color: '#e879f9', fontWeight: '800' }}>{project.metrics.sla_compliance}%</span>
+                                                        {project.metrics?.sla_compliance > 0 && (
+                                                            <div title="SLA Compliance" style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                                                                <span style={{ fontSize: '0.7rem', color: '#e879f9', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>SLA:</span>
+                                                                <span style={{ fontSize: '0.9rem', color: '#e879f9', fontWeight: '800' }}>{project.metrics.sla_compliance}%</span>
                                                             </div>
                                                         )}
                                                     </div>
@@ -299,11 +299,11 @@ export default function ProjectsPage() {
                                             
                                             <div className="ph-tagline" style={{ WebkitLineClamp: isExpanded ? 'unset' : 2, marginBottom: '0' }}>
                                                 {project.project_solution}
-                                                {isExpanded && hasOutcomes && project.outcomes?.map((o: any, idx: number) => (
-                                                    <span key={o.id || idx}>
-                                                        {' '}{o.description}
+                                                {isExpanded && hasOutcomes && (
+                                                    <span style={{ display: 'inline', color: '#cbd5e1', lineHeight: '1.6' }}>
+                                                        {' '}<MetricText text={project.outcomes?.map((o: any) => o.description).join(' ') || ''} highlightColor="#38bdf8" />
                                                     </span>
-                                                ))}
+                                                )}
                                             </div>
                                         </div>
 
@@ -385,6 +385,7 @@ export default function ProjectsPage() {
                                                     )}
                                                 </div>
                                             )}
+
 
 
                                         </div>
