@@ -214,18 +214,13 @@ export default function Home() {
             { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: Dumbbell, animProps: { animate: { y: [0, -6, 0], rotate: -45 }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } } },
             { title: 'Plan Ahead With Confidence', desc: 'Forecast upcoming trends so you can prepare before they become urgent problems.', icon: TrendingUp, animProps: { animate: { x: [0, 4, 0], y: [0, -4, 0] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } } },
             { title: 'Visibility Into Operation', desc: 'Data Analysis across every team and process without the noise.', icon: Eye, animProps: { animate: { scaleY: [1, 0, 1] }, transition: { repeat: Infinity, duration: 0.2, repeatDelay: 3, ease: "easeInOut" } } }
-          ].map(({ title, desc, icon: Icon, animProps, extraIcon: ExtraIcon, extraAnimProps }) => (
+          ].map(({ title, desc, icon: Icon, animProps }) => (
             <div className="sleek-item" key={title}>
               <strong className="heading-text flex items-center gap-1 mb-2 justify-end">
                 {title}
                 <motion.div animate={animProps.animate} transition={animProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Icon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
                 </motion.div>
-                {ExtraIcon && extraAnimProps && (
-                  <motion.div animate={extraAnimProps.animate} transition={extraAnimProps.transition as any} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <ExtraIcon className="w-6 h-6 text-[#38bdf8] drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" />
-                  </motion.div>
-                )}
               </strong>
               <span className="matter-text">{desc}</span>
             </div>
