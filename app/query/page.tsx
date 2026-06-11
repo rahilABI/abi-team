@@ -164,32 +164,31 @@ export default function QueryPage() {
                     {/* Top Row: 3 Columns */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
                         <div>
-        <label className="form-label">Name</label>
-        <div style={{position: 'relative'}}>
-            <User style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
-            <input required type="text" list="stakeholders-list" className="form-input" style={{paddingLeft: '2.5rem'}} value={name} onChange={e => handleNameChange(e.target.value)} />
-        </div>
-    </div>
+                            <label className="form-label">Name</label>
+                            <div style={{position: 'relative'}}>
+                                <User style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
+                                <input required type="text" list="stakeholders-list" className="form-input" style={{paddingLeft: '2.5rem'}} value={name} onChange={e => handleNameChange(e.target.value)} />
+                            </div>
+                        </div>
                         <div>
                             <label className="form-label">Department</label>
                             <div style={{position: 'relative'}}>
                                 <Building style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px', pointerEvents: 'none'}} />
                                 <select required className="form-input" style={{paddingLeft: '2.5rem'}} value={department} onChange={e => setDepartment(e.target.value)}>
-                                <option value="">Select...</option>
-                                {ALL_DEPARTMENTS.map(d => (
-                                    <option key={d} value={d}>{d}</option>
-                                ))}
-                            </select>
+                                    <option value="">Select...</option>
+                                    {ALL_DEPARTMENTS.map(d => (
+                                        <option key={d} value={d}>{d}</option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
-                        </div>
                         <div>
-        <label className="form-label">Email</label>
-        <div style={{position: 'relative'}}>
-            <AtSign style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
-            <input required type="email" className="form-input" style={{paddingLeft: '2.5rem'}} value={email} onChange={e => setEmail(e.target.value)} />
-        </div>
-    </div>
+                            <label className="form-label">Email</label>
+                            <div style={{position: 'relative'}}>
+                                <AtSign style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
+                                <input required type="email" className="form-input" style={{paddingLeft: '2.5rem'}} value={email} onChange={e => setEmail(e.target.value)} />
+                            </div>
+                        </div>
                     </div>
 
                     {/* Text Areas Stacked */}
