@@ -87,7 +87,7 @@ globeGroup.add(dustPoints);
 
 // --- REALISTIC EARTH TEXTURE ---
 const texLoader = new THREE.TextureLoader();
-texLoader.load('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg', (tex) => {
+texLoader.load('https://unpkg.com/three-globe/example/img/earth-dark.jpg', (tex) => {
     sphereMat.map = tex;
     sphereMat.color.setHex(0xffffff);
     sphereMat.needsUpdate = true;
