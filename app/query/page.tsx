@@ -227,18 +227,22 @@ export default function QueryPage() {
                                 </div>
                                 <div>
                                     <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem', textTransform: 'uppercase' }}>Department</label>
-                                    <div style={{position: 'relative'}}><Building style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px', pointerEvents: 'none'}} /><select className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.department} onChange={e => updateStakeholder(idx, 'department', e.target.value)}>
-                                        <option value="">Select...</option>
-                                        {ALL_DEPARTMENTS.map(d => (
-                                    <option key={d} value={d}>{d}</option>
-                                ))}
-                            </select>
-                            </div>
-                        </div>
+                                    <div style={{position: 'relative'}}>
+                                        <Building style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px', pointerEvents: 'none'}} />
+                                        <select className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.department} onChange={e => updateStakeholder(idx, 'department', e.target.value)}>
+                                            <option value="">Select...</option>
+                                            {ALL_DEPARTMENTS.map(d => (
+                                                <option key={d} value={d}>{d}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
                                 <div>
                                     <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem', textTransform: 'uppercase' }}>Email</label>
-                                    <div style={{position: 'relative'}}><AtSign style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px'}} /><input type="email" className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.email} onChange={e => updateStakeholder(idx, 'email', e.target.value)} placeholder="name@domain.com" /></div>
+                                    <div style={{position: 'relative'}}>
+                                        <AtSign style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px'}} />
+                                        <input type="email" className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.email} onChange={e => updateStakeholder(idx, 'email', e.target.value)} placeholder="name@domain.com" />
+                                    </div>
                                 </div>
                                 <button type="button" onClick={() => removeStakeholder(idx)} disabled={stakeholders.length === 1} style={{ background: '#f43f5e', color: 'white', border: 'none', width: '40px', height: '40px', borderRadius: '4px', cursor: stakeholders.length === 1 ? 'not-allowed' : 'pointer', opacity: stakeholders.length === 1 ? 0.3 : 1 }}>
                                     <Trash2 size={16} />
