@@ -169,8 +169,8 @@ export default function ProjectsPage() {
     displayed = displayed.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
 
     return (
-        <div className="container" style={{ paddingTop: '140px', paddingBottom: '80px', display: 'flex', justifyContent: 'center' }}>
-            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '1000px', minHeight: 'auto', padding: '0', alignItems: 'flex-start' }}>
+        <div className="container" style={{ paddingTop: '140px', paddingBottom: '0', display: 'flex', justifyContent: 'center' }}>
+            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '1000px', minHeight: 'auto', padding: '0', marginBottom: '0', alignItems: 'flex-start' }}>
                 
                 {/* Filter & Search Bar */}
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem' }}>
