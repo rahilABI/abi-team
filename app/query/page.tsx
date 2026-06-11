@@ -152,14 +152,14 @@ export default function QueryPage() {
     }
 
     return (
-        <div className="container" style={{ paddingTop: '140px', paddingBottom: '80px', display: 'flex', justifyContent: 'center' }}>
-            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '900px', minHeight: 'auto', padding: '0', alignItems: 'flex-start' }}>
+        <div className="container" style={{ padding: '0', display: 'flex', justifyContent: 'center', height: '100vh', width: '100vw', maxWidth: '100%' }}>
+            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '100%', minHeight: '100vh', padding: '0', margin: '0', alignItems: 'stretch' }}>
 
-                <div style={{ marginBottom: '3rem', textAlign: 'left' }}>
-                    <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#5eead4', marginBottom: '1rem', fontFamily: 'Space Grotesk' }}>Request Form</h1>
-                </div>
+                <form onSubmit={handleSubmit} style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#161c22', padding: '4rem', borderRadius: '0', border: 'none', boxShadow: 'none' }}>
 
-                <form onSubmit={handleSubmit} style={{ width: '100%', background: '#161c22', padding: '3rem', borderRadius: '16px', border: '1px solid rgba(94,234,212,0.1)', boxShadow: '0 10px 50px rgba(0,0,0,0.6)' }}>
+                    <div style={{ marginBottom: '3rem', textAlign: 'left' }}>
+                        <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#5eead4', marginBottom: '1rem', fontFamily: 'Space Grotesk' }}>Request Form</h1>
+                    </div>
 
                     {/* Top Row: 3 Columns */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
