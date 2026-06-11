@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { User, Mail, Building, Plus, Trash2, AtSign } from 'lucide-react';
 
 const ALL_DEPARTMENTS = [
     "Algo", "Software", "Medical", "QA", "Hardware", "QARA", "Marketing", "Human Resource",
@@ -158,27 +159,37 @@ export default function QueryPage() {
                     <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#5eead4', marginBottom: '1rem', fontFamily: 'Space Grotesk' }}>Request Form</h1>
                 </div>
 
-                <form onSubmit={handleSubmit} style={{ width: '100%', background: '#111315', padding: '3rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 10px 40px rgba(0,0,0,0.5)' }}>
+                <form onSubmit={handleSubmit} style={{ width: '100%', background: '#161c22', padding: '3rem', borderRadius: '16px', border: '1px solid rgba(94,234,212,0.1)', boxShadow: '0 10px 50px rgba(0,0,0,0.6)' }}>
 
                     {/* Top Row: 3 Columns */}
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
                         <div>
-                            <label className="form-label">Name</label>
-                            <input required type="text" list="stakeholders-list" className="form-input" value={name} onChange={e => handleNameChange(e.target.value)} />
-                        </div>
+        <label className="form-label">Name</label>
+        <div style={{position: 'relative'}}>
+            <User style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
+            <input required type="text" list="stakeholders-list" className="form-input" style={{paddingLeft: '2.5rem'}} value={name} onChange={e => handleNameChange(e.target.value)} />
+        </div>
+    </div>
                         <div>
                             <label className="form-label">Department</label>
-                            <select required className="form-input" value={department} onChange={e => setDepartment(e.target.value)}>
+                            <div style={{position: 'relative'}}>
+                                <Building style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px', pointerEvents: 'none'}} />
+                                <select required className="form-input" style={{paddingLeft: '2.5rem'}} value={department} onChange={e => setDepartment(e.target.value)}>
                                 <option value="">Select...</option>
                                 {ALL_DEPARTMENTS.map(d => (
                                     <option key={d} value={d}>{d}</option>
                                 ))}
                             </select>
+                            </div>
+                        </div>
                         </div>
                         <div>
-                            <label className="form-label">Email</label>
-                            <input required type="email" className="form-input" value={email} onChange={e => setEmail(e.target.value)} />
-                        </div>
+        <label className="form-label">Email</label>
+        <div style={{position: 'relative'}}>
+            <AtSign style={{position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '16px', height: '16px'}} />
+            <input required type="email" className="form-input" style={{paddingLeft: '2.5rem'}} value={email} onChange={e => setEmail(e.target.value)} />
+        </div>
+    </div>
                     </div>
 
                     {/* Text Areas Stacked */}
@@ -197,10 +208,10 @@ export default function QueryPage() {
                         <textarea required rows={3} className="form-input" value={projectProcess} onChange={e => setProjectProcess(e.target.value)}></textarea>
                     </div>
 
-                    <div style={{ marginBottom: '1.5rem', background: 'rgba(255,255,255,0.02)', padding: '1.5rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ marginBottom: '1.5rem', background: '#13181d', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                             <label className="form-label" style={{ marginBottom: 0 }}>Who Are The Stakeholders Involved In This Initiative?</label>
-                            <button type="button" onClick={addStakeholder} style={{ background: 'transparent', color: '#5eead4', border: '1px solid #5eead4', padding: '0.4rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold' }}>+ Add</button>
+                            <button type="button" onClick={addStakeholder} style={{ background: 'rgba(94, 234, 212, 0.1)', color: '#5eead4', border: '1px solid rgba(94, 234, 212, 0.3)', padding: '0.4rem 1.2rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '0.3rem', transition: 'all 0.2s' }}><Plus size={14} /> Add</button>
                         </div>
 
                         <datalist id="stakeholders-list">
@@ -213,23 +224,25 @@ export default function QueryPage() {
                             <div key={idx} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', gap: '1rem', marginBottom: '1rem', alignItems: 'end' }}>
                                 <div>
                                     <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem', textTransform: 'uppercase' }}>Name</label>
-                                    <input type="text" list="stakeholders-list" className="form-input" style={{ marginBottom: 0 }} value={sh.name} onChange={e => updateStakeholder(idx, 'name', e.target.value)} placeholder="Stakeholder Name" />
+                                    <div style={{position: 'relative'}}><User style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px'}} /><input type="text" list="stakeholders-list" className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.name} onChange={e => updateStakeholder(idx, 'name', e.target.value)} placeholder="Stakeholder Name" /></div>
                                 </div>
                                 <div>
                                     <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem', textTransform: 'uppercase' }}>Department</label>
-                                    <select className="form-input" style={{ marginBottom: 0 }} value={sh.department} onChange={e => updateStakeholder(idx, 'department', e.target.value)}>
+                                    <div style={{position: 'relative'}}><Building style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px', pointerEvents: 'none'}} /><select className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.department} onChange={e => updateStakeholder(idx, 'department', e.target.value)}>
                                         <option value="">Select...</option>
                                         {ALL_DEPARTMENTS.map(d => (
-                                            <option key={d} value={d}>{d}</option>
-                                        ))}
-                                    </select>
+                                    <option key={d} value={d}>{d}</option>
+                                ))}
+                            </select>
+                            </div>
+                        </div>
                                 </div>
                                 <div>
                                     <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '0.2rem', textTransform: 'uppercase' }}>Email</label>
-                                    <input type="email" className="form-input" style={{ marginBottom: 0 }} value={sh.email} onChange={e => updateStakeholder(idx, 'email', e.target.value)} placeholder="name@domain.com" />
+                                    <div style={{position: 'relative'}}><AtSign style={{position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#64748b', width: '14px', height: '14px'}} /><input type="email" className="form-input" style={{ marginBottom: 0, paddingLeft: '2.2rem' }} value={sh.email} onChange={e => updateStakeholder(idx, 'email', e.target.value)} placeholder="name@domain.com" /></div>
                                 </div>
                                 <button type="button" onClick={() => removeStakeholder(idx)} disabled={stakeholders.length === 1} style={{ background: '#f43f5e', color: 'white', border: 'none', width: '40px', height: '40px', borderRadius: '4px', cursor: stakeholders.length === 1 ? 'not-allowed' : 'pointer', opacity: stakeholders.length === 1 ? 0.3 : 1 }}>
-                                    X
+                                    <Trash2 size={16} />
                                 </button>
                             </div>
                         ))}
