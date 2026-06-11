@@ -155,7 +155,7 @@ export default function QueryPage() {
         <div className="container" style={{ padding: '0', display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center' }}>
             <div className="section visible text-protect" style={{ width: '100%', maxWidth: '900px', minHeight: 'auto', padding: '0', margin: '0' }}>
 
-                <form onSubmit={handleSubmit} style={{ width: '100%', background: 'rgba(22, 28, 34, 0.85)', padding: '3rem', borderRadius: '16px', border: '1px solid rgba(253, 230, 138, 0.3)', boxShadow: '0 0 60px rgba(253, 230, 138, 0.2)' }}>
+                <form onSubmit={handleSubmit} style={{ width: '100%', background: 'linear-gradient(135deg, rgba(80, 90, 100, 0.8) 0%, rgba(40, 50, 60, 0.8) 50%, rgba(15, 20, 25, 0.8) 100%)', padding: '3rem', borderRadius: '16px', border: '1px solid rgba(255, 255, 255, 0.15)', borderTop: '1px solid rgba(255, 255, 255, 0.4)', borderLeft: '1px solid rgba(255, 255, 255, 0.3)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 20px 50px rgba(0,0,0,0.8), 0 0 60px rgba(253, 230, 138, 0.15)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
 
                     <div style={{ marginBottom: '3rem', textAlign: 'left' }}>
                         <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#5eead4', marginBottom: '1rem', fontFamily: 'Space Grotesk' }}>Request Form</h1>
