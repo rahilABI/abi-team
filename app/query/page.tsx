@@ -152,10 +152,10 @@ export default function QueryPage() {
     }
 
     return (
-        <div className="container" style={{ padding: '0', display: 'flex', justifyContent: 'center', height: '100vh', width: '100vw', maxWidth: '100%' }}>
-            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '100%', minHeight: '100vh', padding: '0', margin: '0', alignItems: 'stretch' }}>
+        <div className="container" style={{ padding: '0', display: 'flex', justifyContent: 'center', height: '100vh', alignItems: 'center' }}>
+            <div className="section visible text-protect" style={{ width: '100%', maxWidth: '900px', minHeight: 'auto', padding: '0', margin: '0' }}>
 
-                <form onSubmit={handleSubmit} style={{ width: '100%', minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#161c22', padding: '4rem', borderRadius: '0', border: 'none', boxShadow: 'none' }}>
+                <form onSubmit={handleSubmit} style={{ width: '100%', background: 'rgba(22, 28, 34, 0.85)', padding: '3rem', borderRadius: '16px', border: '1px solid rgba(253, 230, 138, 0.3)', boxShadow: '0 0 60px rgba(253, 230, 138, 0.2)' }}>
 
                     <div style={{ marginBottom: '3rem', textAlign: 'left' }}>
                         <h1 style={{ fontSize: '3rem', fontWeight: 'bold', color: '#5eead4', marginBottom: '1rem', fontFamily: 'Space Grotesk' }}>Request Form</h1>

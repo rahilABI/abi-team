@@ -201,12 +201,13 @@ eclipsePlane.position.z = -15;
 scene.add(eclipsePlane);
 
 // Lighting to simulate Eclipse Rim Light
-scene.add(new THREE.AmbientLight(0x223344, 1.0));
+scene.add(new THREE.AmbientLight(0x223344, 1.2)); // Slightly brighter ambient
 const rimLight = new THREE.DirectionalLight(0xffffff, 2.0);
 rimLight.position.set(0, 0, -200); 
 scene.add(rimLight);
-const frontFill = new THREE.DirectionalLight(0xffffff, 0.8); 
-frontFill.position.set(100, 50, 150);
+// Warm Sunlight coming from the front
+const frontFill = new THREE.DirectionalLight(0xfff0dd, 2.5); // Warm, intense sunlight
+frontFill.position.set(150, 100, 250);
 scene.add(frontFill);
 
 // === SHINING GALAXY STARFIELD ===
