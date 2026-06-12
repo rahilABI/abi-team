@@ -245,9 +245,9 @@ export default function Home() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, type: 'spring' }}
       >
-        <h2 className="section-title">AUTOMATION</h2>
-        <p className="section-subtitle">
-          Automation handles the tasks your team repeats every day and creates room for your team to explore new ways of working, build flows around ideas that were never possible manually, and sharpen every process until it runs at its absolute best.
+        <h2 className="section-title" style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)', marginBottom: '0.5rem' }}>AUTOMATION</h2>
+        <p className="section-subtitle" style={{ fontSize: '28px', textAlign: 'justify', position: 'relative', zIndex: 10 }}>
+          We take care of your daily routines, giving your team the freedom to explore new ways of working. With us, you can build workflows for ideas you couldn't manage manually and Fine-tune every process to its absolute best. We architect the ideal solutions When challenges arise.
         </p>
         <div className="sleek-masonry">
           {[
@@ -278,11 +278,14 @@ export default function Home() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, type: 'spring' }}
       >
-        <h2 className="section-title">BUSINESS INTELLIGENCE</h2>
-        <p className="section-subtitle">
-          Business Intelligence provide actionable insights, helping teams make informed decisions and track real performance.
-        </p>
-        <div className="sleek-masonry">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%' }}>
+          <div style={{ maxWidth: '1050px', width: '100%' }}>
+            <h2 className="section-title" style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)', marginBottom: '0.5rem', textAlign: 'left', paddingLeft: 0, marginLeft: 0 }}>BUSINESS INTELLIGENCE</h2>
+            <p className="section-subtitle" style={{ fontSize: '28px', textAlign: 'justify', position: 'relative', zIndex: 10, paddingLeft: 0, marginLeft: 0 }}>
+              We turn scattered data into clear, actionable insights — all in one easy-to-read dashboard. Every team sees the same picture, making decisions faster and tracking performance with confidence. Our dashboards go beyond the numbers: they explain what happened, uncover why, forecast what's coming, and guide the best next steps.
+            </p>
+          </div>
+          <div className="sleek-masonry">
           {[
             { title: 'Know Your Numbers', desc: 'See exactly how your operations are performing right now, not yesterday.', icon: BarChart2, animProps: { animate: { y: [0, -4, 0], scaleY: [1, 1.2, 1] }, transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } } },
             { title: 'Find What\'s Slowing You Down', desc: 'Identify exactly where bottlenecks happen so you can fix them at the source.', icon: CustomTarazu, animProps: { animate: {}, transition: {} } },
@@ -299,6 +302,7 @@ export default function Home() {
               <span className="matter-text">{desc}</span>
             </div>
           ))}
+        </div>
         </div>
       </motion.div>
     </div>

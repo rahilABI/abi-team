@@ -11,6 +11,8 @@ camera.position.z = 240;
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 container.appendChild(renderer.domElement);
 
 // === HELPERS ===
@@ -54,6 +56,7 @@ const sphereMat = new THREE.MeshStandardMaterial({
     emissiveIntensity: 0.5
 });
 const globeMesh = new THREE.Mesh(sphereGeo, sphereMat);
+globeMesh.receiveShadow = true;
 globeGroup.add(globeMesh);
 
 // --- EARTH DUST PARTICLES ---
@@ -208,6 +211,16 @@ scene.add(rimLight);
 // Warm Sunlight coming from the front
 const frontFill = new THREE.DirectionalLight(0xfff0dd, 2.5); // Warm, intense sunlight
 frontFill.position.set(150, 100, 250);
+frontFill.castShadow = true;
+frontFill.shadow.mapSize.width = 2048;
+frontFill.shadow.mapSize.height = 2048;
+frontFill.shadow.camera.near = 50;
+frontFill.shadow.camera.far = 400;
+frontFill.shadow.camera.left = -150;
+frontFill.shadow.camera.right = 150;
+frontFill.shadow.camera.top = 150;
+frontFill.shadow.camera.bottom = -150;
+frontFill.shadow.bias = -0.0005;
 scene.add(frontFill);
 
 // === SHINING GALAXY STARFIELD ===
@@ -247,17 +260,20 @@ function createNodeTexture(colorHex, iconType) {
     
     const colorStr = '#' + colorHex.toString(16).padStart(6, '0');
     
-    // Draw outer ring
+    // Draw outer white glowing ring
     ctx.beginPath();
     ctx.arc(center, center, radius, 0, Math.PI * 2);
-    ctx.lineWidth = 20;
-    ctx.strokeStyle = colorStr;
+    ctx.lineWidth = 14;
+    ctx.strokeStyle = '#ffffff';
+    ctx.shadowColor = '#ffffff';
+    ctx.shadowBlur = 15;
     ctx.stroke();
+    ctx.shadowBlur = 0; // reset for rest
     
     // Draw dark background inside
     ctx.beginPath();
-    ctx.arc(center, center, radius - 10, 0, Math.PI * 2);
-    ctx.fillStyle = '#1a1c23'; // Dark blue/grey background matching image
+    ctx.arc(center, center, radius - 7, 0, Math.PI * 2);
+    ctx.fillStyle = '#111315';
     ctx.fill();
     
     // Draw icon
@@ -275,9 +291,9 @@ function createNodeTexture(colorHex, iconType) {
     return new THREE.CanvasTexture(c);
 }
 
-const types = ['trigger', 'http', 'sheets', 'gmail', 'slack', 'webhook', 'code', 'openai'];
+const types = ['http', 'gmail', 'slack', 'webhook', 'code', 'openai'];
 const nodeCols = { 
-    trigger: 0xfde047, http: 0x2dd4bf, sheets: 0x34a853, gmail: 0xea4335, 
+    http: 0x2dd4bf, gmail: 0xea4335, 
     slack: 0x4a154b, webhook: 0x9b59b6, code: 0x818cf8, openai: 0x10a37f 
 };
 
@@ -288,24 +304,44 @@ types.forEach(t => {
     nodeTextures[t] = createNodeTexture(nodeCols[t], t);
     
     // 3D Material Array for Cylinder: [side, top, bottom]
-    const darkMat = new THREE.MeshStandardMaterial({ color: 0x111315, metalness: 0.5, roughness: 0.8 });
-    const topMat = new THREE.MeshBasicMaterial({ map: nodeTextures[t] });
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x111315, metalness: 0.8, roughness: 0.3 });
+    const topMat = new THREE.MeshStandardMaterial({ 
+        map: nodeTextures[t], 
+        emissive: 0xffffff,
+        emissiveMap: nodeTextures[t],
+        emissiveIntensity: 0.8,
+        metalness: 0.3, 
+        roughness: 0.5 
+    });
     nodeMaterials[t] = [darkMat, topMat, darkMat];
 });
 
-// Create hubs - limited but not sparse
+// Create hubs - limited and avoiding overlap
 const hubs = [];
-for(let i=0; i<60; i++) {
+for(let i=0; i<400; i++) {
+    if (hubs.length >= 35) break;
     const lat = (Math.random() - 0.5) * 120; 
     const lon = (Math.random() - 0.5) * 360; 
-    hubs.push({ lat, lon, type: types[Math.floor(Math.random()*types.length)] });
+    
+    let overlap = false;
+    for (let h of hubs) {
+        const dLat = h.lat - lat;
+        const dLon = h.lon - lon;
+        if (Math.sqrt(dLat*dLat + dLon*dLon) < 16) {
+            overlap = true;
+            break;
+        }
+    }
+    if (!overlap) {
+        hubs.push({ lat, lon, type: types[Math.floor(Math.random()*types.length)] });
+    }
 }
 
 const n8nObjects = [];
 const curvePoints = [];
 
 // Reusable 3D Geometry for Nodes (Coin shape)
-const nodeGeo = new THREE.CylinderGeometry(1, 1, 0.3, 32);
+const nodeGeo = new THREE.CylinderGeometry(1, 1, 0.6, 32);
 nodeGeo.rotateX(Math.PI / 2); // Orient so the top face looks towards +Z
 
 hubs.forEach((hub) => {
@@ -316,6 +352,7 @@ hubs.forEach((hub) => {
 
     // 3D Node Mesh
     const mesh = new THREE.Mesh(nodeGeo, nodeMaterials[hub.type]);
+    mesh.castShadow = true;
     
     // Visible size
     const scale = 4;
@@ -336,31 +373,67 @@ hubs.forEach((hub) => {
     n8nGroup.add(mesh);
     
     n8nObjects.push({
-        mesh, surfacePos: surfacePos.clone(), orbitPos, normal: nodeNormal
+        mesh, surfacePos: surfacePos.clone(), orbitPos, normal: nodeNormal, hubType: hub.type
     });
-    
-    curvePoints.push(orbitPos.clone().add(nodeNormal.clone().multiplyScalar(2)));
 });
 
-// --- SHOOTING STAR GLITTER TRAIL ---
-const travelPath = new THREE.CatmullRomCurve3(curvePoints, true, 'catmullrom', 0.5);
+// --- MULTIPLE SHOOTING STARS ---
+const starGlitterTex = createGlowTexture(64, 'rgba(255,255,255,1)', 'rgba(255,255,255,0.8)', 'rgba(0,0,0,0)');
 
-const starGlitterTex = createGlowTexture(64, 'rgba(255,255,255,1)', 'rgba(6,182,212,0.8)', 'rgba(0,0,0,0)');
-const shootingStar = new THREE.Sprite(new THREE.SpriteMaterial({
-    map: starGlitterTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending
-}));
-shootingStar.scale.set(12, 12, 1);
-n8nGroup.add(shootingStar);
+const starsData = [];
+const numStars = 6;
 
-const trailCount = 30;
-const trailParticles = [];
-for(let i=0; i<trailCount; i++) {
-    const p = new THREE.Sprite(new THREE.SpriteMaterial({
+for (let s = 0; s < numStars; s++) {
+    const jumpPoints = [];
+    const numJumps = 12 + Math.floor(Math.random() * 6); // 12 to 17 jumps
+    const starNodes = [];
+    
+    const sequence = [];
+    for(let i=0; i<numJumps; i++) {
+        sequence.push(n8nObjects[Math.floor(Math.random() * n8nObjects.length)]);
+    }
+
+    for (let i = 0; i < numJumps; i++) {
+        const nodeA = sequence[i];
+        const nodeB = sequence[(i+1)%numJumps];
+        
+        const p1 = nodeA.orbitPos;
+        const p2 = nodeB.orbitPos;
+        const mid = p1.clone().add(p2).multiplyScalar(0.5);
+        
+        const dist = p1.distanceTo(p2);
+        const jumpHeight = radius + 8 + (dist * 0.15); // dynamically adjust jump height
+        mid.normalize().multiplyScalar(jumpHeight);
+        
+        jumpPoints.push(p1);
+        jumpPoints.push(mid);
+        starNodes.push(nodeB);
+    }
+    
+    const travelPath = new THREE.CatmullRomCurve3(jumpPoints, true, 'catmullrom', 0.5);
+    
+    const shootingStar = new THREE.Sprite(new THREE.SpriteMaterial({
         map: starGlitterTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending
     }));
-    p.scale.set(4, 4, 1);
-    n8nGroup.add(p);
-    trailParticles.push(p);
+    shootingStar.scale.set(12, 12, 1);
+    n8nGroup.add(shootingStar);
+    
+    const trailCount = 20; 
+    const trailParticles = [];
+    for(let i=0; i<trailCount; i++) {
+        const p = new THREE.Sprite(new THREE.SpriteMaterial({
+            map: starGlitterTex, transparent: true, opacity: 0, blending: THREE.AdditiveBlending
+        }));
+        p.scale.set(4, 4, 1);
+        n8nGroup.add(p);
+        trailParticles.push(p);
+    }
+    
+    starsData.push({
+        travelPath, shootingStar, trailParticles, trailCount, starNodes, numJumps,
+        speedOffset: 0.05 + Math.random() * 0.05,
+        timeOffset: Math.random()
+    });
 }
 
 
@@ -408,11 +481,11 @@ function animate() {
 
     // --- 3D Globe Shift on Scroll ---
     // progress is roughly 0 (Hero), 1 (Automation), 2 (BI)
-    const r1 = smoothstep(0.2, 1.0, progress); 
-    const r2 = smoothstep(1.2, 2.0, progress); 
+    const r1 = smoothstep(0.4, 1.0, progress); // delayed slightly
+    const r2 = smoothstep(1.4, 2.0, progress); // delayed slightly
     
     // Move globe to the right for Automation, then left for Business Intelligence
-    const targetX = (r1 * 60) - (r2 * 120);
+    const targetX = (r1 * 80) - (r2 * 160); // shifted further out
     globeGroup.position.x += (targetX - globeGroup.position.x) * 0.05;
 
     // Stars glow every 10 secs (dark to light and light to dark)
@@ -424,7 +497,7 @@ function animate() {
     eclipsePlane.lookAt(camera.position); 
 
     // --- N8N Animation & Shooting Star (Scroll 0.5 -> 1.5) ---
-    const n8nWeight = smoothstep(0.4, 0.9, progress) * (1 - smoothstep(1.4, 1.9, progress));
+    const n8nWeight = smoothstep(0.5, 0.9, progress) * (1 - smoothstep(1.5, 1.9, progress));
     
     n8nObjects.forEach(obj => {
         // Fade in all materials of the 3D mesh array
@@ -433,35 +506,49 @@ function animate() {
     });
 
     if (n8nWeight > 0.1) {
-        shootingStar.material.opacity = n8nWeight;
-        const pathProgress = (time * 0.10) % 1; // Slower speed since curve is longer
-        const currentStarPos = travelPath.getPointAt(pathProgress);
-        shootingStar.position.copy(currentStarPos);
-        
-        for(let i=0; i<trailCount; i++) {
-            const delayOffset = (i + 1) * 0.001;
-            let trailProg = pathProgress - delayOffset;
-            if(trailProg < 0) trailProg += 1;
+        starsData.forEach((starData) => {
+            starData.shootingStar.material.opacity = n8nWeight;
+            const pathProgress = (time * starData.speedOffset + starData.timeOffset) % 1; 
             
-            const trailPos = travelPath.getPointAt(trailProg);
+            const totalSegments = starData.numJumps * 2; 
+            const segmentIndex = Math.floor(pathProgress * totalSegments);
+            const currentJumpIndex = Math.floor(segmentIndex / 2);
+            const targetColorHex = nodeCols[starData.starNodes[currentJumpIndex].hubType];
             
-            const jitterAmount = i * 0.2;
-            trailPos.x += (Math.random()-0.5) * jitterAmount;
-            trailPos.y += (Math.random()-0.5) * jitterAmount;
-            trailPos.z += (Math.random()-0.5) * jitterAmount;
+            starData.shootingStar.material.color.setHex(targetColorHex);
             
-            trailParticles[i].position.copy(trailPos);
-            trailParticles[i].material.opacity = n8nWeight * (1 - (i / trailCount));
-            const scale = 5 * (1 - (i / trailCount));
-            trailParticles[i].scale.set(scale, scale, 1);
-        }
+            const currentStarPos = starData.travelPath.getPointAt(pathProgress);
+            starData.shootingStar.position.copy(currentStarPos);
+            
+            for(let i=0; i<starData.trailCount; i++) {
+                const delayOffset = (i + 1) * 0.0015;
+                let trailProg = pathProgress - delayOffset;
+                if(trailProg < 0) trailProg += 1;
+                
+                const trailPos = starData.travelPath.getPointAt(trailProg);
+                
+                const jitterAmount = i * 0.2;
+                trailPos.x += (Math.random()-0.5) * jitterAmount;
+                trailPos.y += (Math.random()-0.5) * jitterAmount;
+                trailPos.z += (Math.random()-0.5) * jitterAmount;
+                
+                const tp = starData.trailParticles[i];
+                tp.position.copy(trailPos);
+                tp.material.color.setHex(targetColorHex);
+                tp.material.opacity = n8nWeight * (1 - (i / starData.trailCount));
+                const scale = 5 * (1 - (i / starData.trailCount));
+                tp.scale.set(scale, scale, 1);
+            }
+        });
     } else {
-        shootingStar.material.opacity = 0;
-        trailParticles.forEach(p => p.material.opacity = 0);
+        starsData.forEach(starData => {
+            starData.shootingStar.material.opacity = 0;
+            starData.trailParticles.forEach(p => p.material.opacity = 0);
+        });
     }
 
     // --- BI Transition (Scroll 1.5 -> 2.5) ---
-    const biWeight = smoothstep(1.3, 1.8, progress);
+    const biWeight = smoothstep(1.5, 2.0, progress);
     
     // --- Earth "Dusting" Transition ---
     globeMesh.material.transparent = true;
@@ -474,8 +561,8 @@ function animate() {
     
     textGroup.children.forEach(c => { 
         c.material.transparent = true; 
-        c.material.opacity = earthFade; 
-        c.visible = earthFade > 0;
+        c.material.opacity = Math.min(earthFade, 1.0 - n8nWeight); 
+        c.visible = c.material.opacity > 0;
     });
 
     // Dust particles explode outwards tied to scroll progress
