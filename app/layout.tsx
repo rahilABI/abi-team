@@ -26,7 +26,7 @@ export default function RootLayout({
         {/* Global Navigation */}
         <nav id="nav">
             <div className="brand text-protect" style={{ color: '#fff' }}>ABI</div>
-            <div className="nav-links text-protect" style={{ display: 'flex', alignItems: 'center', fontSize: '1.2rem', gap: '1.5rem' }}>
+            <div className="nav-links text-protect" style={{ display: 'flex', alignItems: 'center', fontSize: '1.4rem', gap: '2rem' }}>
                 <a href="/">Home</a>
                 <a href="/projects">Projects</a>
                 <a href="/query">RequestForm</a>

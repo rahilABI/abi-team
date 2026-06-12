@@ -245,11 +245,12 @@ export default function Home() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, type: 'spring' }}
       >
-        <h2 className="section-title" style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)', marginBottom: '0.5rem' }}>AUTOMATION</h2>
-        <p className="section-subtitle" style={{ fontSize: '28px', textAlign: 'justify', position: 'relative', zIndex: 10 }}>
-          We take care of your daily routines, giving your team the freedom to explore new ways of working. With us, you can build workflows for ideas you couldn't manage manually and Fine-tune every process to its absolute best. We architect the ideal solutions When challenges arise.
-        </p>
-        <div className="sleek-masonry">
+        <div style={{ borderLeftWidth: '4px', borderLeftStyle: 'solid', borderImage: 'linear-gradient(to bottom, transparent 0%, #ffffff 20%, #cbd5e0 50%, #718096 80%, transparent 100%) 1', paddingLeft: '2.5rem' }}>
+          <h2 className="section-title" style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)', marginBottom: '0.5rem' }}>AUTOMATION</h2>
+          <p className="section-subtitle" style={{ fontSize: '28px', textAlign: 'justify', position: 'relative', zIndex: 10 }}>
+            We take care of your daily routines, giving your team the freedom to explore new ways of working. With us, you can build workflows for ideas you couldn't manage manually and Fine-tune every process to its absolute best. We architect the ideal solutions When challenges arise.
+          </p>
+          <div className="sleek-masonry">
           {[
             { title: 'Hours Saved', desc: 'What took hours now takes minutes.', icon: Clock, animProps: { animate: { rotate: [0, -15, 15, -15, 15, 0] }, transition: { repeat: Infinity, duration: 2, repeatDelay: 1 } } },
             { title: 'Implementation', desc: 'We understand your process and build the automation around it.', icon: Cog, animProps: { animate: { rotate: 360 }, transition: { repeat: Infinity, duration: 4, ease: "linear" } } },
@@ -267,6 +268,7 @@ export default function Home() {
             </div>
           ))}
         </div>
+        </div>
       </motion.div>
 
       {/* SECTION 4: BI */}
@@ -278,7 +280,7 @@ export default function Home() {
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, type: 'spring' }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', width: '100%', borderRightWidth: '4px', borderRightStyle: 'solid', borderImage: 'linear-gradient(to bottom, transparent 0%, #ffffff 20%, #cbd5e0 50%, #718096 80%, transparent 100%) 1', paddingRight: '2.5rem' }}>
           <div style={{ maxWidth: '1050px', width: '100%' }}>
             <h2 className="section-title" style={{ textShadow: '0 0 15px rgba(255,255,255,1), 0 0 30px rgba(255,255,255,0.8)', marginBottom: '0.5rem', textAlign: 'left', paddingLeft: 0, marginLeft: 0 }}>BUSINESS INTELLIGENCE</h2>
             <p className="section-subtitle" style={{ fontSize: '28px', textAlign: 'justify', position: 'relative', zIndex: 10, paddingLeft: 0, marginLeft: 0 }}>
